@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De Grote Freymannshof Pubquiz — Büllingen 2026</title>
+<style>
+/* ==================================================================
+   STIJL — hier hoef je niks aan te doen, tenzij je kleuren wil wijzigen
+   ================================================================== */
+:root{
+  --bg:#0a0f0d;
+  --bg2:#111a16;
+  --ink:#f3ece0;
+  --muted:#9db3a6;
+  --gold:#d9a441;
+  --gold2:#f2c568;
+  --line:rgba(217,164,65,.25);
+  --accent:#d9a441;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Segoe UI",-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  overflow:hidden;
+}
+#stage{
+  position:fixed;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:4.5vh 5vw 8vh;
+}
+.slide{width:100%;max-width:1500px;max-height:100%;animation:fade .35s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* achtergrond sfeer */
+#bgfx{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1100px 700px at 15% -10%, rgba(217,164,65,.13), transparent 60%),
+  radial-gradient(900px 600px at 100% 100%, rgba(70,120,95,.20), transparent 60%),
+  linear-gradient(160deg,#0a0f0d 0%,#101a15 55%,#0a0f0d 100%);}
+#bgfx.round{background:
+  radial-gradient(1200px 800px at 50% -20%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 65%),
+  linear-gradient(160deg,#0a0f0d 0%,#111a16 60%,#080c0a 100%);}
+#trees{position:fixed;left:0;right:0;bottom:0;height:16vh;z-index:-1;opacity:.5;pointer-events:none}
+
+/* HUD */
+#hud{position:fixed;left:0;right:0;bottom:0;height:46px;display:flex;align-items:center;
+  gap:16px;padding:0 22px;font-size:13px;color:var(--muted);
+  background:linear-gradient(to top,rgba(0,0,0,.6),transparent);z-index:50;letter-spacing:.06em}
+#hud b{color:var(--gold);font-weight:600}
+#bar{position:fixed;left:0;bottom:0;height:3px;background:var(--gold);z-index:60;transition:width .3s}
+.kbd{border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:1px 6px;font-size:11px}
+#hudright{margin-left:auto;display:flex;gap:14px;align-items:center}
+
+/* typografie */
+.eyebrow{font-size:clamp(11px,1.1vw,15px);letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(38px,6.6vw,104px);line-height:.98;font-weight:700;letter-spacing:-.02em}
+h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;font-weight:700}
+.qtext{font-family:Georgia,serif;font-size:clamp(26px,3.5vw,58px);line-height:1.16;font-weight:700;letter-spacing:-.01em}
+.sub{font-size:clamp(15px,1.5vw,24px);color:var(--muted);line-height:1.5}
+.gold{color:var(--gold)}
+.rule{height:1px;background:linear-gradient(to right,var(--accent),transparent);margin:22px 0}
+
+/* titelslide */
+.hero{text-align:center}
+.hero .crest{font-size:clamp(40px,5vw,74px);margin-bottom:10px}
+.hero .meta{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:999px;padding:9px 20px;font-size:clamp(12px,1.2vw,17px);
+  color:var(--ink);background:rgba(217,164,65,.07)}
+
+/* rondekop */
+.roundwrap{text-align:center}
+.bignum{font-family:Georgia,serif;font-size:clamp(90px,17vw,260px);line-height:.8;
+  color:transparent;-webkit-text-stroke:2px var(--accent);opacity:.8}
+.roundwrap h2{margin-top:10px}
+.roundwrap .sub{max-width:820px;margin:22px auto 0}
+.tags{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* vraagslide */
+.qhead{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.qnum{width:clamp(46px,4.4vw,70px);height:clamp(46px,4.4vw,70px);flex:none;border-radius:50%;
+  display:grid;place-items:center;background:var(--accent);color:#0a0f0d;
+  font-weight:800;font-size:clamp(19px,2vw,30px);font-family:Georgia,serif}
+.qmeta{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.hint{margin-top:26px;font-size:clamp(14px,1.4vw,21px);color:var(--muted);font-style:italic}
+.opts{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opt{border:1px solid var(--line);border-radius:12px;padding:16px 20px;font-size:clamp(15px,1.6vw,25px);
+  background:rgba(255,255,255,.03)}
+.opt span{color:var(--accent);font-weight:800;margin-right:10px}
+.peek{margin-top:26px;border-left:3px solid var(--gold);padding:12px 18px;background:rgba(217,164,65,.10);
+  border-radius:0 10px 10px 0;font-size:clamp(15px,1.7vw,26px);display:none}
+.peek.on{display:block}
+.peek b{color:var(--gold2)}
+
+/* media */
+.mediabox{position:relative;margin-top:22px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);background:#000;aspect-ratio:16/9;max-height:52vh;margin-inline:auto;width:100%;max-width:960px}
+.localvideo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.mediabox audio{display:none}
+.beeptag{position:absolute;top:12px;right:12px;z-index:5;background:rgba(217,60,60,.85);color:#fff;
+  border-radius:8px;padding:5px 12px;font-size:12px;letter-spacing:.14em;font-weight:700;display:none}
+.beeptag.on{display:block}
+.mediaerr{position:absolute;inset:0;z-index:7;display:none;place-items:center;text-align:center;
+  padding:24px;background:rgba(5,5,5,.92);color:#ffb4a2;font-size:clamp(14px,1.6vw,20px);line-height:1.5}
+.mediaerr.on{display:grid}
+.mediaerr small{display:block;margin-top:10px;font-size:.7em;opacity:.8;color:var(--muted)}
+.cover{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  background:radial-gradient(circle at 50% 40%,#1b2620,#080b09);z-index:3}
+.titlemask{position:absolute;left:0;right:0;top:0;height:22%;z-index:4;
+  background:linear-gradient(to bottom,#000 60%,transparent);pointer-events:none}
+.vinyl{width:min(210px,26vh);height:min(210px,26vh);border-radius:50%;margin:0 auto 18px;
+  background:repeating-radial-gradient(circle at 50% 50%,#151b18 0 3px,#0d1210 3px 6px);
+  border:1px solid rgba(255,255,255,.1);display:grid;place-items:center;animation:spin 6s linear infinite}
+.vinyl.paused{animation-play-state:paused}
+.vinyl::after{content:"";width:28%;height:28%;border-radius:50%;background:var(--accent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.playbtn{cursor:pointer;border:1px solid var(--gold);color:var(--gold);background:rgba(217,164,65,.12);
+  border-radius:999px;padding:13px 30px;font-size:clamp(14px,1.5vw,20px);font-weight:700;letter-spacing:.08em}
+.playbtn:hover{background:var(--gold);color:#0a0f0d}
+.timerpill{margin-top:14px;font-size:14px;color:var(--muted);letter-spacing:.2em}
+.missing{color:#ffb4a2;font-size:14px;margin-top:12px;max-width:520px;line-height:1.5}
+.svlink{display:inline-block;margin-top:14px;font-size:13px;color:var(--muted);text-decoration:none;
+  border-bottom:1px dotted var(--muted)}
+
+/* streetview */
+.svbox{position:relative;margin-top:18px;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+  aspect-ratio:16/9;max-height:56vh;width:100%;max-width:1120px;margin-inline:auto;background:#000}
+.svbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.svtag{position:absolute;top:12px;left:12px;z-index:5;background:rgba(0,0,0,.7);border:1px solid var(--line);
+  border-radius:8px;padding:6px 12px;font-size:12px;letter-spacing:.2em;color:var(--gold)}
+
+/* nakijksheet */
+.sheet{display:grid;grid-template-columns:1fr 1fr;gap:26px 40px}
+.sheetcol h3{font-family:Georgia,serif;font-size:clamp(19px,2vw,30px);color:var(--gold);margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.ans{display:flex;gap:12px;padding:7px 0;font-size:clamp(13px,1.32vw,20px);line-height:1.35;
+  border-bottom:1px dashed rgba(255,255,255,.07)}
+.ans i{color:var(--accent);font-style:normal;font-weight:800;flex:none;width:1.5em}
+.ans em{color:var(--muted);font-style:normal;font-size:.85em;display:block}
+.sheethead{display:flex;align-items:flex-end;gap:18px;margin-bottom:20px}
+
+/* tabel eindstand */
+table.score{width:100%;border-collapse:collapse;margin-top:26px;font-size:clamp(14px,1.5vw,23px)}
+table.score th,table.score td{border-bottom:1px solid var(--line);padding:13px 12px;text-align:left}
+table.score th{color:var(--accent);font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+table.score td:first-child{width:60px;color:var(--muted);font-family:Georgia,serif;font-size:1.3em}
+
+.center{text-align:center}
+.two{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+@media (max-width:900px){.two,.opts,.sheet{grid-template-columns:1fr}}
+.list{margin-top:20px}
+.list div{padding:9px 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:clamp(14px,1.5vw,22px);display:flex;gap:12px}
+.list div span{color:var(--accent);font-weight:800}
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.85);
+  border:1px solid var(--line);color:var(--gold);padding:9px 18px;border-radius:999px;font-size:13px;
+  letter-spacing:.14em;z-index:99;opacity:0;transition:opacity .25s}
+#toast.on{opacity:1}
+#overview{position:fixed;inset:0;background:rgba(5,8,7,.97);z-index:80;display:none;padding:5vh 5vw;overflow:auto}
+#overview.on{display:block}
+#overview .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:22px}
+#overview button{text-align:left;background:rgba(255,255,255,.04);border:1px solid var(--line);color:var(--ink);
+  border-radius:10px;padding:11px 13px;font-size:13px;cursor:pointer;font-family:inherit}
+#overview button:hover{border-color:var(--gold);background:rgba(217,164,65,.12)}
+#overview button small{display:block;color:var(--muted);margin-top:3px}
+</style>
+</head>
+<body>
+<div id="bgfx"></div>
+<svg id="trees" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+  <path fill="#050807" d="M0 200V150l30-42 16 22 22-34 20 28 26-44 24 36 18-24 28 40 22-30 26 38 20-26 30 44 24-34 22 30 26-42 24 38 20-26 28 40 24-32 22 28 26-40 24 36 20-24 30 42 22-30 26 38 24-34 22 30 26-42 24 38 20-26 28 40 24-32 22 28 26-40 24 36 20-24 30 42 22-30 26 38 24-34 22 30 26-42 24 38 20-26 28 40V200z"/>
+</svg>
+
+<div id="stage"></div>
+<div id="bar"></div>
+<div id="hud">
+  <span id="hudleft"></span>
+  <span id="hudright">
+    <span id="clock"></span>
+    <span><span class="kbd">←</span> <span class="kbd">→</span> navigeren</span>
+    <span><span class="kbd">A</span> antwoord</span>
+    <span><span class="kbd">T</span> timer</span>
+    <span><span class="kbd">O</span> overzicht</span>
+    <span><span class="kbd">F</span> volledig scherm</span>
+  </span>
+</div>
+<div id="toast"></div>
+<div id="overview"><div class="eyebrow">Sprong naar</div><h2>Overzicht</h2><div class="grid" id="ovgrid"></div></div>
+
+<script>
+/* ####################################################################
+   #                                                                  #
+   #   >>>  HIER PAS JE ALLES AAN  <<<                                #
+   #                                                                  #
+   #   MUZIEK / FILM : vul "file" met het pad naar een lokaal audio-  #
+   #                   of videobestand (bv. file:"media/Round 2/     #
+   #                   Naam.mp3"). Alles speelt lokaal af, zonder     #
+   #                   internet of YouTube. Zet zelf een bestand waar #
+   #                   jij de rechten op hebt in de map 'media' naast #
+   #                   dit HTML-bestand. 'start' = vanaf welke seconde#
+   #                   in het bestand afgespeeld wordt, 'duur' = hoe  #
+   #                   lang het fragment loopt.                       #
+   #                                                                  #
+   #   BEEP (walk-on) : optioneel 'beepStart' en 'beepDur' toevoegen  #
+   #                   aan een vraag om een stuk van het fragment weg #
+   #                   te piepen (bv. het moment dat de omroeper de   #
+   #                   naam van de darter noemt). 'beepStart' = aantal#
+   #                   seconden ná het begin van het fragment (dus    #
+   #                   ná 'start'), 'beepDur' = lengte van de piep in #
+   #                   seconden. Laat weg (of null) voor geen piep.   #
+   #                                                                  #
+   #   STREET VIEW  : lat / lng / heading. Coördinaten haal je uit     #
+   #                  Google Maps: rechtsklik op de kaart → de eerste  #
+   #                  regel (bv. 50.3969, 6.2647) → kopiëren.          #
+   #                  heading = kijkrichting in graden (0=noord).      #
+   #                                                                  #
+   #################################################################### */
+
+const QUIZ = {
+  titel:      "De Grote Freymannshof Pubquiz",
+  subtitel:   "Büllingen 2026",
+  locatie:    "Freymannshof · Büllingen · Ostbelgien",
+  datum:      "11 – 13 september 2026",
+
+  spelregels: [
+    "Teams van 2. Kies een naam.",
+    "8 rondes van 8 vragen. Eén punt per goed antwoord, tenzij anders vermeld.",
+    "Na elke 2 rondes wisselen we de antwoordbladen en kijken we elkaars werk na.",
+    "De quizmaster heeft altijd gelijk. Ook als hij ongelijk heeft.",
+  ],
+
+  rondes: [
+    /* ============================ RONDE 1 ============================ */
+    {
+      naam:"De Hoge Venen",
+      thema:"De locatieronde",
+      kleur:"#5fa87c",
+      intro:"We beginnen zachtjes. Aardrijkskunde van de route die we net gereden hebben, en van het lapje België waar we nu zitten.",
+      type:"text",
+      vragen:[
+        {v:"Büllingen is een gemeente en bestaat uit 27 plaatsen. In welke provincie ligt het?", a:"Liège, Wallonia"},
+        {v:"Sinds wanneer hoort Büllingen bij België?", a:"1919"},
+        {v:"Niet lang geleden was er een enorme natuurbrand in de Hoge Venen, ", a:"Nederlands, Frans en Duits"},
+        {v:"Wat is het hoogste punt van België, gelegen in de Hoge Venen?", a:"Signal de Botrange — 694 meter"},
+        {v:"De Ardennen strekken zich uit over meerdere landen. Noem ze allemaal", a:"België, Frankrijk, Luxemburg"},
+        {v:"Noem de voltallige naam van het racecircuit hier in de buurt.", a:"(Circuit de) Spa-Francorchamps"},
+        {v:"Hoe worden de kogels afgevuurd van een paintball geweer?", a:"Perslucht of CO₂"},
+        {v:"Nog 1 vraag", a:"komt nog"}
+      ]
+    },
+
+    /* ============================ RONDE 2 ============================ */
+    {
+      naam:"Raad de Walk-on",
+      thema:"QF World Darts Championship 2026",
+      kleur:"#c96a8b",
+      intro:"Acht walk-on tunes van dartsspelers. De omroeper noemt vaak hun naam in het fragment — dat stukje piepen we weg. Wie is de darter?",
+      type:"media",
+      vragen:[
+        {v:"Fragment 1 — welke darter?", a:"Jonny Clayton",
+         file:"media/Round 2/Jonny Clayton Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:26, beepDur:6},
+        {v:"Fragment 2 — welke darter?", a:"Ryan Searle",
+         file:"media/Round 2/Ryan Searle Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:21.5, beepDur:7},
+        {v:"Fragment 3 — welke darter?", a:"Justin Hood",
+         file:"media/Round 2/Justin Hood Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:19, beepDur:5},
+        {v:"Fragment 4 — welke darter?", a:"Luke Littler",
+         file:"media/Round 2/Luke Littler WALK ON (Greenlight) - World Darts Championship 2026 Final.mp3", start:0, duur:60, beepStart:41, beepDur:5},
+        {v:"Fragment 5 — welke darter?", a:"Krzysztof Ratajski",
+         file:"media/Round 2/Krzysztof Ratajski Walk on - World Darts Champioship 2026.mp3", start:0, duur:60, beepStart:25, beepDur:4},
+        {v:"Fragment 6 — welke darter?", a:"Luke Humphries",
+         file:"media/Round 2/Luke Humphries Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:32, beepDur:6},
+        {v:"Fragment 7 — welke darter?", a:"Gian van Veen",
+         file:"media/Round 2/Gian van Veen Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:17, beepDur:9},
+        {v:"Fragment 8 — welke darter?", a:"Gary Anderson",
+         file:"media/Round 2/Gary Anderson Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:37, beepDur:9}
+      ]
+    },
+
+    /* ============================ RONDE 3 ============================ */
+    // {
+    //   naam:"Internetgekkies",
+    //   thema:"Film & Series",
+    //   kleur:"#4f8fd4",
+    //   intro:"Uit welk jaar komt deze video?",
+    //   type:"media",
+    //   vragen:[
+    //     {v:"Uit welk jaar komt deze video?", a:"2012", file:"", start:0, duur:25, film:true},
+    //     {v:"Quote: “You either die a hero, or you live long enough to see yourself become the villain.” Uit welke film — en wie zegt het?",
+    //      a:"The Dark Knight (2008) — Harvey Dent", file:null},
+    //     {v:"Fragment 2 — welke film?", a:"Pulp Fiction (1994)", file:"", start:0, duur:25, film:true},
+    //     {v:"Welke HBO-serie uit 2001 volgt Easy Company van Normandië tot Bastogne, hier vlak om de hoek?",
+    //      a:"Band of Brothers", file:null},
+    //     {v:"Fragment 3 — welke film?", a:"New Kids Turbo (2010)", file:"", start:0, duur:25, film:true},
+    //     {v:"Hoeveel Oscars won Titanic (1997)?", a:"11", file:null},
+    //     {v:"Fragment 4 — welke film?", a:"The Lord of the Rings: The Fellowship of the Ring (2001)", file:"", start:0, duur:25, film:true},
+    //     {v:"Welke acteur speelde de hoofdrol in zowel Forrest Gump als Saving Private Ryan?",
+    //      a:"Tom Hanks", file:null}
+    //   ]
+    // },
+
+    /* ============================ RONDE 4 ============================ */
+    {
+      naam:"Waar Staan Wij?",
+      thema:"Street View · GeoGuessr",
+      kleur:"#e0a13c",
+      intro:"Je mag rondkijken en rondlopen met de muis, maar niet uitzoomen naar de kaart. Noem de plaats. Bij twijfel: schrijf je beste gok op, halve punten bestaan hier.",
+      type:"streetview",
+      vragen:[
+        {v:"Locatie 1 — Welke plaats?", a:"Hengelo (Overijssel)",
+         lat:52.26610, lng:6.79310, heading:180},
+        {v:"Locatie 2 — Welke plaats?", a:"Büllingen — dorpskern",
+         lat:50.39690, lng:6.26470, heading:90},
+        {v:"Locatie 3 — waar zijn we? Tip: hoger kom je in dit land niet.", a:"Signal de Botrange, Hoge Venen (694 m)",
+         lat:50.50170, lng:6.09470, heading:200},
+        {v:"Locatie 4 — welke stad? Er staat een Sherman-tank op het plein.", a:"Bastogne — Place McAuliffe",
+         lat:50.00040, lng:5.71600, heading:120},
+        {v:"Locatie 5 — welke plek? Je staat op de grens van drie landen.", a:"Drielandenpunt, Vaals (Vaalserberg)",
+         lat:50.75430, lng:6.02090, heading:250},
+        {v:"Locatie 6 — welke stad aan de Maas?", a:"Dinant",
+         lat:50.26000, lng:4.91300, heading:20},
+        {v:"Locatie 7 — welk Ardens dorp met kasteelruïne op de rots?", a:"La Roche-en-Ardenne",
+         lat:50.18170, lng:5.57580, heading:300},
+        {v:"Locatie 8 — welke plaats, én in welk land? (moeilijk)", a:"Vianden — Luxemburg",
+         lat:49.93470, lng:6.20690, heading:40}
+      ]
+    },
+
+    /* ============================ RONDE 5 ============================ */
+    // {
+    //   naam:"Raad het geluid",
+    //   thema:"Twente & Hengelo",
+    //   kleur:"#cf5a4a",
+    //   intro:"Thuisronde. Als je hier onder de vijf blijft, mag je niet terug over de grens.",
+    //   type:"text",
+    //   vragen:[
+    //     {v:"In welk jaar werd FC Twente landskampioen?", a:"2010"},
+    //     {v:"Onder welke Engelse trainer gebeurde dat?", a:"Steve McClaren"},
+    //     {v:"Naar wie is het atletiekstadion in Hengelo vernoemd?", a:"Fanny Blankers-Koen (het FBK Stadion)"},
+    //     {v:"Welke Hengelose industrieel liet Tuindorp ’t Lansink bouwen voor zijn werknemers?", a:"C.T. Stork (Charles Theodorus Stork)"},
+    //     {v:"In welk oud Hengeloos fabriekscomplex zit sinds 2021 het Oyfo Techniekmuseum?", a:"Het Hazemeyer-complex"},
+    //     {v:"Welke Twentse stad heeft de bijnaam ‘Boeskoolstad’?", a:"Oldenzaal"},
+    //     {v:"Naar welke plaats is het biermerk Grolsch genoemd?", a:"Groenlo (‘Grol’)"},
+    //     {v:"Hengelo is de laatste Nederlandse stop van welke internationale trein richting Duitsland?", a:"De Intercity Berlijn (Amsterdam – Berlijn)"}
+    //   ]
+    // },
+
+    /* ============================ RONDE 6 ============================ */
+    // {
+    //   naam:"De Galerij",
+    //   thema:"De vloeibare ronde",
+    //   kleur:"#c78a2e",
+    //   intro:"We zitten in het beste bierland ter wereld. Bewijs dat je dat verdient.",
+    //   type:"text",
+    //   vragen:[
+    //     {v:"Hoeveel erkende Trappistenbrouwerijen heeft België op dit moment?", a:"5"},
+    //     {v:"Welke abdij verloor in 2023 haar Trappistenlabel?", a:"Achel"},
+    //     {v:"Bij welk Trappistenbier hoort de legende van een gouden ring en een forel?", a:"Orval"},
+    //     {v:"Welk Belgisch bier drink je uit een glas zonder voet, dat in een houten houder moet staan?", a:"Kwak (Pauwel Kwak)"},
+    //     {v:"Wat is het alcoholpercentage van Westvleteren 12?", a:"10,2 %"},
+    //     {v:"Welke Belgische biersoort gist spontaan met wilde gisten uit de lucht in de Zennevallei?", a:"Lambiek (en daaruit geuze)"},
+    //     {v:"Wat betekent de biernaam ‘Duvel’?", a:"Duivel"},
+    //     {v:"Wat werd in 2016 door UNESCO erkend als immaterieel werelderfgoed van België?", a:"De Belgische biercultuur"}
+    //   ]
+    // },
+
+    /* ============================ RONDE 7 ============================ */
+    // {
+    //   naam:"De Onmogelijke Ronde",
+    //   thema:"Alles binnen 30 kilometer van deze stoel",
+    //   kleur:"#8b5cf6",
+    //   intro:"Elk antwoord in deze ronde heeft te maken met de grond waarop dit huis staat. Dat maakt het niet makkelijker. Verwacht drie punten en wees blij met twee.",
+    //   type:"text",
+    //   vragen:[
+    //     {v:"Wat is de Weißerstein bij Mürringen — en hoe hoog is hij?", a:"Het tweede hoogste punt van België — 692 meter"},
+    //     {v:"Welke Belgische generaal-gouverneur liet in 1923 een 6 meter hoge constructie op de Botrange bouwen, zodat België symbolisch de 700 meter haalde?", a:"Herman Baltia"},
+    //     {v:"Op 17 december 1944 tankte een SS-Kampfgruppe in Büllingen bij met buitgemaakte Amerikaanse brandstof. Wie gaf die eenheid zijn naam?", a:"Joachim (Jochen) Peiper — Kampfgruppe Peiper"},
+    //     {v:"Welke twee dorpen in de gemeente Büllingen staan in de Amerikaanse militaire geschiedenis bekend als de ‘Twin Villages’?", a:"Krinkelt en Rocherath"},
+    //     {v:"Uit hoeveel dorpen en gehuchten bestaat de gemeente Büllingen?", a:"27"},
+    //     {v:"Welke Nederlandse atlete liep in juni 2021 in Hengelo een wereldrecord op de 10.000 meter — dat twee dagen later in dezelfde stad weer werd verbroken?", a:"Sifan Hassan (29:06.82), verbroken door Letesenbet Gidey"},
+    //     {v:"Welk vredesverdrag bracht de Oostkantons, en dus Büllingen, bij België?", a:"Het Verdrag van Versailles (1919)"},
+    //     {v:"Hoe heet het grote Belgische militaire oefenterrein in de gemeente Büllingen?", a:"Kamp Elsenborn"}
+    //   ]
+    // },
+
+    /* ============================ RONDE 8 ============================ */
+    // {
+    //   naam:"Alles of Niets",
+    //   thema:"Finale · inzetronde",
+    //   kleur:"#e2574c",
+    //   intro:"Laatste ronde, en nu met inzet. Per vraag zet je vooraf 1, 2 of 3 punten in. Goed = erbij. Fout = eraf. Ja, je kunt hierdoor negatief eindigen.",
+    //   type:"text",
+    //   vragen:[
+    //     {v:"Hoeveel inwoners had de gemeente Büllingen op 1 januari 2024?", a:"5.544"},
+    //     {v:"Welk percentage van de gemeente Büllingen is bos?", a:"46,5 %"},
+    //     {v:"Hoe groot is België in vierkante kilometers?", a:"30.688 km²"},
+    //     {v:"Hoeveel dagen duurde het Ardennenoffensief (16 december 1944 – 25 januari 1945)?", a:"41 dagen"},
+    //     {v:"Hoeveel gouden medailles won Fanny Blankers-Koen op de Spelen van 1948 in Londen?", a:"4"},
+    //     {v:"In welk jaar werd FC Twente opgericht, uit de fusie van Sportclub Enschede en Enschedese Boys?", a:"1965"},
+    //     {v:"Hoeveel inwoners heeft de gemeente Hengelo ongeveer?", a:"± 81.000"},
+    //     {v:"Slotvraag: hoeveel kilometer rijden wij dit weekend in totaal — heen én terug?", a:"± 570 km"}
+    //   ]
+    // }
+  ],
+
+  teams: ["", "", "", "", ""]   // vul namen in voor de eindstand-slide, of laat leeg
+};
+
+/* ####################################################################
+   #   VANAF HIER: DE MACHINERIE. Niks aan te passen nodig.           #
+   #################################################################### */
+
+const stage  = document.getElementById('stage');
+const hudL   = document.getElementById('hudleft');
+const bgfx   = document.getElementById('bgfx');
+const bar    = document.getElementById('bar');
+const toastEl= document.getElementById('toast');
+
+/* --- slides opbouwen --- */
+const slides = [];
+slides.push({kind:'title'});
+slides.push({kind:'rules'});
+
+QUIZ.rondes.forEach((r, ri) => {
+  slides.push({kind:'round', r, ri});
+  r.vragen.forEach((q, qi) => slides.push({kind:'q', r, ri, q, qi}));
+  if (ri % 2 === 1) {                     // na elke 2 rondes: nakijken
+    const a = QUIZ.rondes[ri-1], b = r;
+    slides.push({kind:'swap', ri});
+    slides.push({kind:'sheet', a, b, ri});
+  }
+});
+slides.push({kind:'final'});
+slides.push({kind:'end'});
+
+let i = 0, peek = false, timerId = null, timeLeft = 0;
+
+/* --- helpers --- */
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function toast(t){ toastEl.textContent = t; toastEl.classList.add('on');
+  clearTimeout(toast._t); toast._t = setTimeout(()=>toastEl.classList.remove('on'), 1400); }
+
+function roundLetter(ri){ return 'R' + (ri+1); }
+
+/* --- render --- */
+function render(){
+  const s = slides[i];
+  peek = false;
+  stopTimer();
+  const accent = s.r ? s.r.kleur : (s.b ? s.b.kleur : '#d9a441');
+  document.documentElement.style.setProperty('--accent', accent);
+  bgfx.className = (s.kind==='round') ? 'round' : '';
+  bar.style.width = ((i)/(slides.length-1)*100) + '%';
+
+  let html = '';
+  switch(s.kind){
+
+  case 'title':
+    html = '<div class="slide hero">'
+      + '<div class="crest">🏆</div>'
+      + '<div class="eyebrow">'+esc(QUIZ.datum)+'</div>'
+      + '<h1>'+esc(QUIZ.titel)+'</h1>'
+      + '<div class="rule" style="width:180px;margin:26px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
+      + '<div class="sub">'+esc(QUIZ.subtitel)+'</div>'
+      + '<div class="meta"><div class="chip">'+esc(QUIZ.locatie)+'</div>'
+      + '<div class="chip">8 rondes · 64 vragen</div></div></div>';
+    break;
+
+  case 'rules':
+    html = '<div class="slide"><div class="eyebrow">Voordat we beginnen</div>'
+      + '<h2>Spelregels</h2><div class="rule"></div><div class="list">'
+      + QUIZ.spelregels.map((t,n)=>'<div><span>'+(n+1)+'</span>'+esc(t)+'</div>').join('')
+      + '</div></div>';
+    break;
+
+  case 'round':
+    html = '<div class="slide roundwrap">'
+      + '<div class="bignum">'+(s.ri+1)+'</div>'
+      + '<div class="eyebrow" style="margin-top:18px">Ronde '+(s.ri+1)+' — '+esc(s.r.thema)+'</div>'
+      + '<h2>'+esc(s.r.naam)+'</h2>'
+      + '<div class="sub">'+esc(s.r.intro)+'</div>'
+      + '<div class="tags"><div class="chip">'+s.r.vragen.length+' vragen</div>'
+      + '<div class="chip">'+esc(s.r.thema)+'</div></div></div>';
+    break;
+
+  case 'q':
+    html = '<div class="slide">' + qHead(s) + qBody(s) + qPeek(s) + '</div>';
+    break;
+
+  case 'swap':
+    html = '<div class="slide center"><div class="eyebrow">Pauze</div>'
+      + '<h1 style="font-size:clamp(34px,5.4vw,86px)">Bladen wisselen</h1>'
+      + '<div class="rule" style="width:160px;margin:24px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
+      + '<div class="sub" style="max-width:760px;margin:0 auto">Geef je antwoordblad van ronde '+s.ri+' en '+(s.ri+1)
+      + ' door aan de tafel links van je. Pen op tafel. Bier bijvullen.</div>'
+      + '<div class="meta" style="margin-top:30px;display:flex;gap:14px;justify-content:center">'
+      + '<div class="chip">Nakijken volgt</div><div class="chip">Fout = fout</div></div></div>';
+    break;
+
+  case 'sheet':
+    html = '<div class="slide"><div class="sheethead"><div>'
+      + '<div class="eyebrow">Nakijksheet</div>'
+      + '<h2 style="font-size:clamp(24px,3.2vw,48px)">Ronde '+(s.ri)+' &amp; '+(s.ri+1)+'</h2></div></div>'
+      + '<div class="sheet">' + sheetCol(s.a, s.ri) + sheetCol(s.b, s.ri+1) + '</div></div>';
+    break;
+
+  case 'final':
+    html = '<div class="slide"><div class="eyebrow">Het moment van de waarheid</div>'
+      + '<h2>Eindstand</h2><table class="score"><tr><th></th><th>Team</th>'
+      + '<th style="width:120px">Punten</th></tr>'
+      + QUIZ.teams.map((t,n)=>'<tr><td>'+(n+1)+'</td><td>'+(esc(t)||'&nbsp;')+'</td><td>&nbsp;</td></tr>').join('')
+      + '</table><div class="hint">Maximaal te halen: 64 punten plus bonussen. Ronde 8 kan pijn doen.</div></div>';
+    break;
+
+  case 'end':
+    html = '<div class="slide hero"><div class="crest">🍺</div>'
+      + '<h1>Proost</h1><div class="rule" style="width:180px;margin:26px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
+      + '<div class="sub">De verliezers doen de afwas.<br>De winnaars kiezen het bier.</div>'
+      + '<div class="meta"><div class="chip">'+esc(QUIZ.locatie)+'</div></div></div>';
+    break;
+  }
+
+  stage.innerHTML = html;
+  hookMedia(s);
+  hudL.innerHTML = hudText(s);
+}
+
+function hudText(s){
+  if(s.kind==='q') return '<b>Ronde '+(s.ri+1)+'</b> · '+esc(s.r.naam)+' · vraag '+(s.qi+1)+'/'+s.r.vragen.length
+    + ' <span style="margin-left:14px" id="tdisp"></span>';
+  if(s.kind==='round') return '<b>Ronde '+(s.ri+1)+'</b> · '+esc(s.r.naam);
+  if(s.kind==='sheet') return '<b>Nakijken</b> · ronde '+s.ri+' &amp; '+(s.ri+1);
+  return '<b>'+esc(QUIZ.titel)+'</b>';
+}
+
+function qHead(s){
+  return '<div class="qhead"><div class="qnum">'+(s.qi+1)+'</div><div>'
+    + '<div class="qmeta">Ronde '+(s.ri+1)+' · '+esc(s.r.naam)+'</div>'
+    + '</div></div><div class="qtext">'+esc(s.q.v)+'</div>';
+}
+
+function qBody(s){
+  const q = s.q;
+  if (s.r.type === 'streetview') return svHtml(q);
+  if (s.r.type === 'media' && q.file !== null) return mediaHtml(q, !!q.film);
+  return '';
+}
+
+function qPeek(s){
+  return '<div class="peek" id="peek"><b>Antwoord:</b> '+esc(s.q.a)
+    + (s.q.extra ? '<div style="font-size:.75em;color:var(--muted);margin-top:6px">'+esc(s.q.extra)+'</div>' : '')
+    + '</div>';
+}
+
+function sheetCol(r, nr){
+  return '<div class="sheetcol"><h3>Ronde '+nr+' — '+esc(r.naam)+'</h3>'
+    + r.vragen.map((q,n)=>'<div class="ans"><i>'+(n+1)+'</i><div>'+esc(q.a)
+      + (q.extra?'<em>'+esc(q.extra)+'</em>':'') + '</div></div>').join('')
+    + '</div>';
+}
+
+/* --- media (muziek / film), lokale bestanden, volledig offline --- */
+const jsStr = s => String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+function mediaHtml(q, isFilm){
+  if(!q.file){
+    return '<div class="mediabox"><div class="cover">'
+      + '<div><div class="vinyl paused"></div>'
+      + '<div class="missing">Nog geen bestand gekoppeld. Zet een audio/video-bestand in de map <code>media</code> '
+      + 'en verwijs ernaar met <code>file:"media/....mp3"</code> bij deze vraag in de config bovenaan dit bestand.</div>'
+      + '</div></div></div>';
+  }
+  const st = q.start || 0;
+  const dur = q.duur || 20;
+  const bs = (q.beepStart!=null) ? q.beepStart : 'null';
+  const bd = (q.beepDur!=null) ? q.beepDur : 'null';
+  const path = jsStr(q.file);
+  const beeptag = (q.beepStart!=null && q.beepDur) ? '<div class="beeptag" id="beeptag">🔇 PIEP</div>' : '';
+  const errbox = '<div class="mediaerr" id="mediaerr"></div>';
+  if(isFilm){
+    return '<div class="mediabox" id="mb">' + beeptag + errbox
+      + '<div class="cover" id="cover"><div>'
+      + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',true,'+bs+','+bd+')">▶ Speel fragment ('+dur+' s)</div>'
+      + '<div class="timerpill">Titelbalk wordt afgeplakt</div></div></div></div>';
+  }
+  return '<div class="mediabox" id="mb">' + beeptag + errbox + '<div class="cover" id="cover"><div>'
+    + '<div class="vinyl paused" id="vinyl"></div>'
+    + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+')">▶ Speel fragment ('+dur+' s)</div>'
+    + '<div class="timerpill" id="mtimer">geluid only — beeld blijft bedekt</div></div></div></div>';
+}
+
+let mediaTimer = null;
+let currentPlayer = null;
+let beepTimers = [];
+let beepCtx = null;
+
+function clearBeep(){
+  beepTimers.forEach(clearTimeout);
+  beepTimers = [];
+  const tag = document.getElementById('beeptag');
+  if(tag) tag.classList.remove('on');
+}
+
+function playBeepTone(sec){
+  try{
+    beepCtx = beepCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const osc = beepCtx.createOscillator();
+    const gain = beepCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 1000;
+    gain.gain.value = 0.035;
+    osc.connect(gain).connect(beepCtx.destination);
+    osc.start();
+    osc.stop(beepCtx.currentTime + sec);
+  }catch(e){}
+}
+
+function destroyPlayer(){
+  clearBeep();
+  if(currentPlayer){
+    try{ currentPlayer.pause(); currentPlayer.remove(); }catch(e){}
+  }
+  currentPlayer = null;
+}
+function muteCurrent(){ if(currentPlayer) currentPlayer.muted = true; }
+function unmuteCurrent(){ if(currentPlayer) currentPlayer.muted = false; }
+function scheduleBeep(beepStart, beepDur){
+  if(beepStart==null || !beepDur) return;
+  const tag = document.getElementById('beeptag');
+  beepTimers.push(setTimeout(()=>{
+    muteCurrent();
+    if(tag) tag.classList.add('on');
+    playBeepTone(beepDur);
+  }, beepStart*1000));
+  beepTimers.push(setTimeout(()=>{
+    unmuteCurrent();
+    if(tag) tag.classList.remove('on');
+  }, (beepStart+beepDur)*1000));
+}
+
+function showMediaError(msg){
+  clearInterval(mediaTimer);
+  destroyPlayer();
+  const box = document.getElementById('mb');
+  if(box) box.querySelectorAll('audio,video').forEach(x=>x.remove());
+  const err = document.getElementById('mediaerr');
+  if(!err) return;
+  err.innerHTML = '⚠ Dit fragment speelt niet af.<br>' + esc(msg);
+  err.classList.add('on');
+}
+
+/* lokaal audio/video-bestand afspelen (geen internet nodig) */
+window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
+  const box = document.getElementById('mb');
+  if(!box) return;
+  destroyPlayer();
+  const errEl = document.getElementById('mediaerr'); if(errEl) errEl.classList.remove('on');
+  box.querySelectorAll('audio,video').forEach(f=>f.remove());
+  const el = document.createElement(isFilm ? 'video' : 'audio');
+  if(isFilm) el.className = 'localvideo';
+  el.preload = 'auto';
+  el.src = path;
+  el.addEventListener('loadedmetadata', ()=>{ try{ el.currentTime = start; }catch(e){} });
+  el.addEventListener('error', ()=>showMediaError(
+    'Bestand "'+path+'" kon niet geladen worden. Bestaat het pad, en staat het in de map naast dit HTML-bestand?'));
+  box.appendChild(el);
+  currentPlayer = el;
+  el.play().catch(()=>showMediaError(
+    'Kon "'+path+'" niet afspelen (browser blokkeerde het afspelen, of het bestand ontbreekt).'));
+  const cover = document.getElementById('cover');
+  if(isFilm){
+    cover.remove();
+    const mask = document.createElement('div');
+    mask.className = 'titlemask';
+    box.appendChild(mask);
+  } else {
+    const v = document.getElementById('vinyl'); if(v) v.classList.remove('paused');
+  }
+  scheduleBeep(beepStart, beepDur);
+  let left = dur;
+  const d = document.getElementById('mtimer');
+  clearInterval(mediaTimer);
+  mediaTimer = setInterval(()=>{
+    left--;
+    if(d) d.textContent = left + ' seconden';
+    if(left<=0){
+      clearInterval(mediaTimer);
+      destroyPlayer();
+      box.querySelectorAll('audio,video').forEach(x=>x.remove());
+      const vv = document.getElementById('vinyl'); if(vv) vv.classList.add('paused');
+      if(d) d.textContent = 'fragment afgelopen — druk nogmaals voor herhaling';
+      if(isFilm) box.insertAdjacentHTML('beforeend',
+        '<div class="cover"><div><div class="playbtn" onclick="playMedia(\''+jsStr(path)+'\','+start+','+dur+',true,'+(beepStart==null?'null':beepStart)+','+(beepDur==null?'null':beepDur)+')">↻ Nog een keer</div></div></div>');
+    }
+  },1000);
+};
+
+/* --- street view --- */
+function svHtml(q){
+  const src = 'https://maps.google.com/maps?q=&layer=c&cbll='+q.lat+','+q.lng
+            + '&cbp=11,'+(q.heading||0)+',0,0,0&output=svembed&hl=nl';
+  const open = 'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+q.lat+','+q.lng+'&heading='+(q.heading||0);
+  return '<div class="svbox"><div class="svtag">STREET VIEW</div>'
+    + '<iframe src="'+src+'" allowfullscreen loading="eager"></iframe></div>'
+    + '<div class="center"><a class="svlink" href="'+open+'" target="_blank" rel="noopener">'
+    + 'Werkt het niet? Open in de browser →</a></div>';
+}
+
+function hookMedia(s){ /* niets nodig, alles via onclick */ }
+
+/* --- vraagtimer --- */
+function startTimer(sec){
+  stopTimer(); timeLeft = sec;
+  const d = document.getElementById('tdisp');
+  if(d) d.innerHTML = '⏱ ' + timeLeft + 's';
+  timerId = setInterval(()=>{
+    timeLeft--;
+    const e = document.getElementById('tdisp');
+    if(e) e.innerHTML = timeLeft>0 ? '⏱ '+timeLeft+'s' : '⏱ <span style="color:#ff8a7a">TIJD</span>';
+    if(timeLeft<=0) clearInterval(timerId);
+  },1000);
+}
+function stopTimer(){ if(timerId){clearInterval(timerId); timerId=null;} clearInterval(mediaTimer); destroyPlayer(); }
+
+/* --- navigatie --- */
+function go(n){ i = Math.max(0, Math.min(slides.length-1, n)); render(); }
+document.addEventListener('keydown', e=>{
+  const ov = document.getElementById('overview');
+  if(e.key==='Escape'){ ov.classList.remove('on'); return; }
+  if(ov.classList.contains('on')) return;
+  switch(e.key){
+    case 'ArrowRight': case ' ': case 'PageDown': case 'Enter': e.preventDefault(); go(i+1); break;
+    case 'ArrowLeft':  case 'PageUp': e.preventDefault(); go(i-1); break;
+    case 'Home': go(0); break;
+    case 'End':  go(slides.length-1); break;
+    case 'a': case 'A': {
+      const p = document.getElementById('peek');
+      if(p){ peek=!peek; p.classList.toggle('on', peek); }
+      break;
+    }
+    case 't': case 'T': startTimer(5); toast('Timer 60 seconden'); break;
+    case 'f': case 'F':
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+      break;
+    case 'o': case 'O': openOverview(); break;
+  }
+});
+stage.addEventListener('click', e=>{
+  if(e.target.closest('iframe,.playbtn,a')) return;
+  go(i+1);
+});
+
+function openOverview(){
+  const g = document.getElementById('ovgrid');
+  g.innerHTML = slides.map((s,n)=>{
+    let t = '', sub = '';
+    if(s.kind==='title'){t='Titel';}
+    else if(s.kind==='rules'){t='Spelregels';}
+    else if(s.kind==='round'){t='Ronde '+(s.ri+1); sub=s.r.naam;}
+    else if(s.kind==='q'){t=roundLetter(s.ri)+' · vraag '+(s.qi+1); sub=s.q.v.slice(0,46)+'…';}
+    else if(s.kind==='swap'){t='Bladen wisselen';}
+    else if(s.kind==='sheet'){t='Nakijksheet R'+s.ri+'/'+(s.ri+1);}
+    else if(s.kind==='final'){t='Eindstand';}
+    else {t='Slot';}
+    return '<button onclick="jump('+n+')">'+esc(t)+'<small>'+esc(sub)+'</small></button>';
+  }).join('');
+  document.getElementById('overview').classList.add('on');
+}
+window.jump = function(n){ document.getElementById('overview').classList.remove('on'); go(n); };
+
+/* klok */
+setInterval(()=>{
+  const d = new Date();
+  document.getElementById('clock').textContent =
+    String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+},1000);
+
+render();
+console.log('Slides:', slides.length);
+</script>
+</body>
+</html>
