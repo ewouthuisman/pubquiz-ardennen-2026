@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>De Grote Freymannshof Pubquiz — Büllingen 2026</title>
+<title>De grote mannenweekend pubquiz — Ardenen editie</title>
 <style>
 /* ==================================================================
    STIJL — hier hoef je niks aan te doen, tenzij je kleuren wil wijzigen
@@ -52,6 +52,24 @@ body{
 #bar{position:fixed;left:0;bottom:0;height:3px;background:var(--gold);z-index:60;transition:width .3s}
 .kbd{border:1px solid rgba(255,255,255,.18);border-radius:4px;padding:1px 6px;font-size:11px}
 #hudright{margin-left:auto;display:flex;gap:14px;align-items:center}
+
+/* grote timer-cirkel bovenaan */
+#timerring{position:fixed;top:20px;left:50%;z-index:80;width:128px;height:128px;
+  opacity:0;pointer-events:none;transform:translate(-50%,-14px) scale(.88);
+  transition:opacity .25s ease,transform .25s ease}
+#timerring.on{opacity:1;transform:translate(-50%,0) scale(1)}
+#timerring svg{width:100%;height:100%;transform:rotate(-90deg);filter:drop-shadow(0 6px 18px rgba(0,0,0,.45))}
+#timerring .ring-bg{fill:rgba(10,15,13,.92);stroke:rgba(217,164,65,.22);stroke-width:8}
+#timerring .ring-fg{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;
+  stroke-dasharray:326.726;stroke-dashoffset:0;
+  transition:stroke-dashoffset 1s linear,stroke .3s ease;
+  filter:drop-shadow(0 0 8px rgba(217,164,65,.55))}
+#ringnum{position:absolute;inset:0;display:grid;place-items:center;
+  font-family:Georgia,serif;font-weight:800;font-size:38px;color:var(--ink);letter-spacing:-.02em}
+#timerring.time-up{animation:ringpulse .6s ease infinite}
+#timerring.time-up .ring-fg{stroke:#ff5a4a;filter:drop-shadow(0 0 10px rgba(255,90,74,.7))}
+#timerring.time-up #ringnum{color:#ff8a7a}
+@keyframes ringpulse{0%,100%{transform:translate(-50%,0) scale(1)}50%{transform:translate(-50%,0) scale(1.07)}}
 
 /* typografie */
 .eyebrow{font-size:clamp(11px,1.1vw,15px);letter-spacing:.32em;text-transform:uppercase;color:var(--accent);font-weight:700}
@@ -173,6 +191,13 @@ table.score td:first-child{width:60px;color:var(--muted);font-family:Georgia,ser
 
 <div id="stage"></div>
 <div id="bar"></div>
+<div id="timerring" aria-hidden="true">
+  <svg viewBox="0 0 120 120">
+    <circle class="ring-bg" cx="60" cy="60" r="52"></circle>
+    <circle class="ring-fg" id="ringfg" cx="60" cy="60" r="52"></circle>
+  </svg>
+  <div id="ringnum"></div>
+</div>
 <div id="hud">
   <span id="hudleft"></span>
   <span id="hudright">
@@ -217,8 +242,8 @@ table.score td:first-child{width:60px;color:var(--muted);font-family:Georgia,ser
    #################################################################### */
 
 const QUIZ = {
-  titel:      "De Grote Freymannshof Pubquiz",
-  subtitel:   "Büllingen 2026",
+  titel:      "De grote mannenweekend pubquiz",
+  subtitel:   "Ardenen editie",
   locatie:    "Freymannshof · Büllingen · Ostbelgien",
   datum:      "11 – 13 september 2026",
 
@@ -414,6 +439,10 @@ const hudL   = document.getElementById('hudleft');
 const bgfx   = document.getElementById('bgfx');
 const bar    = document.getElementById('bar');
 const toastEl= document.getElementById('toast');
+const ringEl = document.getElementById('timerring');
+const ringFg = document.getElementById('ringfg');
+const ringNum= document.getElementById('ringnum');
+const RING_CIRC = 326.726;
 
 /* --- slides opbouwen --- */
 const slides = [];
@@ -491,7 +520,7 @@ function render(){
       + '<h1 style="font-size:clamp(34px,5.4vw,86px)">Bladen wisselen</h1>'
       + '<div class="rule" style="width:160px;margin:24px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
       + '<div class="sub" style="max-width:760px;margin:0 auto">Geef je antwoordblad van ronde '+s.ri+' en '+(s.ri+1)
-      + ' door aan de tafel links van je. Pen op tafel. Bier bijvullen.</div>'
+      + ' door aan de tafel links van je. Pen op tafel.</div>'
       + '<div class="meta" style="margin-top:30px;display:flex;gap:14px;justify-content:center">'
       + '<div class="chip">Nakijken volgt</div><div class="chip">Fout = fout</div></div></div>';
     break;
@@ -512,9 +541,9 @@ function render(){
     break;
 
   case 'end':
-    html = '<div class="slide hero"><div class="crest">🍺</div>'
-      + '<h1>Proost</h1><div class="rule" style="width:180px;margin:26px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
-      + '<div class="sub">De verliezers doen de afwas.<br>De winnaars kiezen het bier.</div>'
+    html = '<div class="slide hero"><div class="crest">🔥</div>'
+      + '<h1>Einde van de quiz</h1><div class="rule" style="width:180px;margin:26px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
+      + '<div class="sub">Bedankt voor het meespelen.<br>Tot bij het kampvuur.</div>'
       + '<div class="meta"><div class="chip">'+esc(QUIZ.locatie)+'</div></div></div>';
     break;
   }
@@ -525,8 +554,7 @@ function render(){
 }
 
 function hudText(s){
-  if(s.kind==='q') return '<b>Ronde '+(s.ri+1)+'</b> · '+esc(s.r.naam)+' · vraag '+(s.qi+1)+'/'+s.r.vragen.length
-    + ' <span style="margin-left:14px" id="tdisp"></span>';
+  if(s.kind==='q') return '<b>Ronde '+(s.ri+1)+'</b> · '+esc(s.r.naam)+' · vraag '+(s.qi+1)+'/'+s.r.vragen.length;
   if(s.kind==='round') return '<b>Ronde '+(s.ri+1)+'</b> · '+esc(s.r.naam);
   if(s.kind==='sheet') return '<b>Nakijken</b> · ronde '+s.ri+' &amp; '+(s.ri+1);
   return '<b>'+esc(QUIZ.titel)+'</b>';
@@ -592,26 +620,104 @@ let mediaTimer = null;
 let currentPlayer = null;
 let beepTimers = [];
 let beepCtx = null;
+let beepEl = null;      /* voorbereid <audio>-element met de piep erin */
+let beepUrls = {};      /* cache: duur -> blob-url */
+
+/* ---- piep bijstellen ---- */
+const BEEP_FREQ = 500;  /* toonhoogte in Hz */
+const BEEP_VOL  = 0.6;  /* volume 0..1 */
+
+/* Bouwt een klein WAV-bestandje (blokgolf) van 'sec' seconden in het geheugen.
+   Waarom via een <audio>-element en niet rechtstreeks via de Web Audio API?
+   Browsers geven geluid alleen vrij op het moment dat iemand klikt. De piep
+   klinkt pas 20-40 s later, dus moeten we hem tijdens de klik al klaarzetten.
+   Een <audio>-element laat zich zo "ontgrendelen"; op iPhone/iPad speelt dat
+   ook nog eens door de belknop-op-stil heen. Web Audio staat als reserve. */
+function beepUrl(sec){
+  const key = sec.toFixed(3);
+  if(beepUrls[key]) return beepUrls[key];
+  const sr = 44100, n = Math.max(1, Math.round(sec * sr)), amp = 0.5;
+  const buf = new ArrayBuffer(44 + n*2), v = new DataView(buf);
+  const txt = (o,s)=>{ for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); };
+  txt(0,'RIFF');  v.setUint32(4, 36 + n*2, true);  txt(8,'WAVE');
+  txt(12,'fmt '); v.setUint32(16, 16, true);   v.setUint16(20, 1, true);
+  v.setUint16(22, 1, true);      v.setUint32(24, sr, true);
+  v.setUint32(28, sr*2, true);   v.setUint16(32, 2, true);  v.setUint16(34, 16, true);
+  txt(36,'data'); v.setUint32(40, n*2, true);
+  const fade = Math.min(Math.round(sr*0.008), Math.floor(n/4));  /* 8 ms in/uit tegen geknetter */
+  for(let i=0;i<n;i++){
+    const s = ((i/sr) * BEEP_FREQ % 1) < 0.5 ? 1 : -1;
+    let env = 1;
+    if(fade > 0){
+      if(i < fade) env = i/fade;
+      else if(i > n-fade) env = Math.max(0, (n-i)/fade);
+    }
+    v.setInt16(44 + i*2, Math.round(s * env * amp * 32767), true);
+  }
+  beepUrls[key] = URL.createObjectURL(new Blob([buf], {type:'audio/wav'}));
+  return beepUrls[key];
+}
+
+/* Wordt aangeroepen tijdens de klik op "Speel fragment" -- het enige moment
+   waarop de browser geluid vrijgeeft. Kort start-en-stop = ontgrendeld. */
+function primeBeep(sec){
+  if(!sec) return;
+  try{
+    if(beepEl){ try{ beepEl.pause(); }catch(e){} }
+    beepEl = new Audio(beepUrl(sec));
+    beepEl.preload = 'auto';
+    beepEl.volume = BEEP_VOL;
+    const el = beepEl;
+    const arm = ()=>{ try{ el.pause(); el.currentTime = 0; }catch(e){} };
+    const p = el.play();
+    arm();                                   /* meteen weer stil */
+    if(p && p.then) p.then(arm, ()=>{});     /* en nog eens zodra play() rond is */
+  }catch(e){ beepEl = null; }
+  try{                                       /* reserveroute ook nu openzetten */
+    beepCtx = beepCtx || new (window.AudioContext||window.webkitAudioContext)();
+    if(beepCtx.state === 'suspended') beepCtx.resume();
+  }catch(e){ beepCtx = null; }
+}
 
 function clearBeep(){
   beepTimers.forEach(clearTimeout);
   beepTimers = [];
   const tag = document.getElementById('beeptag');
   if(tag) tag.classList.remove('on');
+  if(beepEl){ try{ beepEl.pause(); beepEl.currentTime = 0; }catch(e){} }
+}
+
+/* Reserveroute: piep via de Web Audio API */
+function beepViaWebAudio(sec){
+  try{
+    beepCtx = beepCtx || new (window.AudioContext||window.webkitAudioContext)();
+    if(beepCtx.state === 'suspended') beepCtx.resume();
+    const d = Math.max(0.05, sec), a = Math.min(0.008, d/4), peak = BEEP_VOL * 0.5;
+    const osc = beepCtx.createOscillator(), gain = beepCtx.createGain();
+    osc.type = 'square';
+    osc.frequency.value = BEEP_FREQ;
+    const t = beepCtx.currentTime;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(peak, t + a);
+    gain.gain.setValueAtTime(peak, t + d - a);
+    gain.gain.linearRampToValueAtTime(0, t + d);
+    osc.connect(gain).connect(beepCtx.destination);
+    osc.start(t);
+    osc.stop(t + d);
+  }catch(e){}
 }
 
 function playBeepTone(sec){
-  try{
-    beepCtx = beepCtx || new (window.AudioContext||window.webkitAudioContext)();
-    const osc = beepCtx.createOscillator();
-    const gain = beepCtx.createGain();
-    osc.type = 'square';
-    osc.frequency.value = 1000;
-    gain.gain.value = 0.035;
-    osc.connect(gain).connect(beepCtx.destination);
-    osc.start();
-    osc.stop(beepCtx.currentTime + sec);
-  }catch(e){}
+  if(beepEl){
+    try{
+      beepEl.currentTime = 0;
+      beepEl.volume = BEEP_VOL;
+      const p = beepEl.play();
+      if(p && p.catch) p.catch(()=>beepViaWebAudio(sec));
+      return;
+    }catch(e){}
+  }
+  beepViaWebAudio(sec);
 }
 
 function destroyPlayer(){
@@ -675,6 +781,7 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
   } else {
     const v = document.getElementById('vinyl'); if(v) v.classList.remove('paused');
   }
+  primeBeep(beepDur);   /* nu, tijdens de klik, de piep vrijgeven */
   scheduleBeep(beepStart, beepDur);
   let left = dur;
   const d = document.getElementById('mtimer');
@@ -707,19 +814,76 @@ function svHtml(q){
 
 function hookMedia(s){ /* niets nodig, alles via onclick */ }
 
+/* --- quizmuziek bij de timer --- */
+const QUIZMUZIEK = [
+  "media/quizmuziek/Charlie's Angels - The Benny Hill Show.mp3",
+  "media/quizmuziek/David Carroll & His Orchestra - Good Mornin'.mp3",
+  "media/quizmuziek/Efteling - Indische Waterlelies.mp3",
+  "media/quizmuziek/Herb Alpert & The Tijuana Brass - Spanish Flea.mp3",
+  "media/quizmuziek/Herb Alpert & The Tijuana Brass - Tijuana Taxi.mp3",
+  "media/quizmuziek/John Barry Seven Plus Four - Hit and Miss - Theme from the TV Series _Juke Box Jury_.mp3",
+  "media/quizmuziek/London Voices, London Symphony Orchestra, John Williams, New London Children's Choir - Cantina Band - From _Star Wars_ A New Hope_.mp3",
+  "media/quizmuziek/Mariachi Vargas De Tecalitlán - Jarabe tapatío.mp3",
+  "media/quizmuziek/Quincy Jones - Soul Bossa Nova.mp3",
+  "media/quizmuziek/Radio City - Game Show Tv Theme Music.mp3",
+  "media/quizmuziek/The Champs - Tequila.mp3",
+  "media/quizmuziek/The Shadows - 36-24-36.mp3",
+  "media/quizmuziek/The Ventures - Hawaii Five-O.mp3",
+  "media/quizmuziek/Wonder Woman - The Price Is Right.mp3"
+];
+let quizMusic = null, lastMusicIdx = -1;
+
+function startQuizMusic(){
+  stopQuizMusic();
+  if(!QUIZMUZIEK.length) return;
+  let n = Math.floor(Math.random() * QUIZMUZIEK.length);
+  if(QUIZMUZIEK.length > 1 && n === lastMusicIdx) n = (n + 1) % QUIZMUZIEK.length;
+  lastMusicIdx = n;
+  const el = new Audio(encodeURI(QUIZMUZIEK[n]));
+  el.preload = 'auto';
+  el.volume = 0.5;
+  el.loop = true;
+  quizMusic = el;
+  el.play().catch(()=>{});
+}
+
+function stopQuizMusic(){
+  if(quizMusic){
+    try{ quizMusic.pause(); quizMusic.src = ''; }catch(e){}
+    quizMusic = null;
+  }
+}
+
 /* --- vraagtimer --- */
+let timerTotal = 0;
 function startTimer(sec){
-  stopTimer(); timeLeft = sec;
-  const d = document.getElementById('tdisp');
-  if(d) d.innerHTML = '⏱ ' + timeLeft + 's';
+  stopTimer(); timeLeft = sec; timerTotal = sec;
+  startQuizMusic();
+  if(ringEl){
+    ringEl.classList.remove('time-up');
+    ringEl.classList.add('on');
+    ringFg.style.transition = 'none';
+    ringFg.style.strokeDashoffset = '0';
+    ringFg.getBoundingClientRect();
+    ringFg.style.transition = '';
+    ringNum.textContent = timeLeft;
+  }
   timerId = setInterval(()=>{
     timeLeft--;
-    const e = document.getElementById('tdisp');
-    if(e) e.innerHTML = timeLeft>0 ? '⏱ '+timeLeft+'s' : '⏱ <span style="color:#ff8a7a">TIJD</span>';
+    if(ringEl){
+      const frac = Math.max(0, timeLeft) / timerTotal;
+      ringFg.style.strokeDashoffset = String(RING_CIRC * (1 - frac));
+      ringNum.textContent = timeLeft>0 ? timeLeft : '0';
+      ringEl.classList.toggle('time-up', timeLeft<=0);
+    }
     if(timeLeft<=0) clearInterval(timerId);
   },1000);
 }
-function stopTimer(){ if(timerId){clearInterval(timerId); timerId=null;} clearInterval(mediaTimer); destroyPlayer(); }
+function stopTimer(){
+  if(timerId){clearInterval(timerId); timerId=null;}
+  clearInterval(mediaTimer); destroyPlayer(); stopQuizMusic();
+  if(ringEl) ringEl.classList.remove('on','time-up');
+}
 
 /* --- navigatie --- */
 function go(n){ i = Math.max(0, Math.min(slides.length-1, n)); render(); }
@@ -737,7 +901,7 @@ document.addEventListener('keydown', e=>{
       if(p){ peek=!peek; p.classList.toggle('on', peek); }
       break;
     }
-    case 't': case 'T': startTimer(5); toast('Timer 60 seconden'); break;
+    case 't': case 'T': startTimer(20); toast('Timer 20 seconden'); break;
     case 'f': case 'F':
       if(!document.fullscreenElement) document.documentElement.requestFullscreen();
       else document.exitFullscreen();
