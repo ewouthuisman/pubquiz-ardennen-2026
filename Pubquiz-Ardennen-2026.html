@@ -302,72 +302,84 @@ const QUIZ = {
     },
 
     /* ============================ RONDE 3 ============================ */
-    // {
-    //   naam:"Internetgekkies",
-    //   thema:"Film & Series",
-    //   kleur:"#4f8fd4",
-    //   intro:"Uit welk jaar komt deze video?",
-    //   type:"media",
-    //   vragen:[
-    //     {v:"Uit welk jaar komt deze video?", a:"2012", file:"", start:0, duur:25, film:true},
-    //     {v:"Quote: “You either die a hero, or you live long enough to see yourself become the villain.” Uit welke film — en wie zegt het?",
-    //      a:"The Dark Knight (2008) — Harvey Dent", file:null},
-    //     {v:"Fragment 2 — welke film?", a:"Pulp Fiction (1994)", file:"", start:0, duur:25, film:true},
-    //     {v:"Welke HBO-serie uit 2001 volgt Easy Company van Normandië tot Bastogne, hier vlak om de hoek?",
-    //      a:"Band of Brothers", file:null},
-    //     {v:"Fragment 3 — welke film?", a:"New Kids Turbo (2010)", file:"", start:0, duur:25, film:true},
-    //     {v:"Hoeveel Oscars won Titanic (1997)?", a:"11", file:null},
-    //     {v:"Fragment 4 — welke film?", a:"The Lord of the Rings: The Fellowship of the Ring (2001)", file:"", start:0, duur:25, film:true},
-    //     {v:"Welke acteur speelde de hoofdrol in zowel Forrest Gump als Saving Private Ryan?",
-    //      a:"Tom Hanks", file:null}
-    //   ]
-    // },
+    {
+      naam:"Intro songs",
+      thema:"TV-programma's & klassiekers",
+      kleur:"#4f8fd4",
+      intro:"Acht herkenningsmelodieën uit bekende programma's. Van welk programma is dit de intro song?",
+      type:"media",
+      vragen:[
+        {v:"Fragment 1 — van welk programma is dit de intro song?", a:"Het speelplein (Disney's Recess)",
+         file:"media/tunes/Disney's Recess (Opening Theme).mp3", start:0, duur:28},
+        {v:"Fragment 2 — van welk programma is dit de intro song?", a:"Lingo",
+         file:"media/tunes/Lingo Theme (NL).mp3", start:0, duur:28},
+        {v:"Fragment 3 — van welk programma is dit de intro song?", a:"Ned's Survival Gids",
+         file:"media/tunes/Ned's Declassified School Survival Guide - Intro  Theme Song.mp3", start:0, duur:28},
+        {v:"Fragment 4 — van welk programma is dit de intro song?", a:"Ratjetoe (Rugrats)",
+         file:"media/tunes/Rugrats Theme Song (HQ)  Episode Opening Credits  Nick Animation.mp3", start:0, duur:28},
+        {v:"Fragment 5 — van welk programma is dit de intro song?", a:"South Park",
+         file:"media/tunes/South Park Instrumental Intro.mp3", start:0, duur:28},
+        {v:"Fragment 6 — van welk programma is dit de intro song?", a:"The Pink Panther Show",
+         file:"media/tunes/The Pink Panther Theme Music.mp3", start:0, duur:28},
+        {v:"Fragment 7 — van welk programma is dit de intro song?", a:"The Simpsons",
+         file:"media/tunes/The Simpsons Opening Credits and Theme Song.mp3", start:16, duur:28},
+        {v:"Fragment 8 — van welk programma is dit de intro song?", a:"Totally Spies",
+         file:"media/tunes/Totally Spies - Theme Song - Intro - Here We go [HQ Audio].mp3", start:0, duur:28}
+      ]
+    },
 
     /* ============================ RONDE 4 ============================ */
     {
-      naam:"Waar Staan Wij?",
-      thema:"Street View · GeoGuessr",
-      kleur:"#e0a13c",
-      intro:"Je mag rondkijken en rondlopen met de muis, maar niet uitzoomen naar de kaart. Noem de plaats. Bij twijfel: schrijf je beste gok op, halve punten bestaan hier.",
-      type:"streetview",
+      naam:"Wat was er eerder?",
+      thema:"Jaartallen · absurdia",
+      kleur:"#8b5cf6",
+      intro:"Van elk tweetal: wat kwam eerst? Kies het vroegste moment.",
+      type:"text",
       vragen:[
-        {v:"Locatie 1 — Welke plaats?", a:"Hengelo (Overijssel)",
-         lat:52.26610, lng:6.79310, heading:180},
-        {v:"Locatie 2 — Welke plaats?", a:"Büllingen — dorpskern",
-         lat:50.39690, lng:6.26470, heading:90},
-        {v:"Locatie 3 — waar zijn we? Tip: hoger kom je in dit land niet.", a:"Signal de Botrange, Hoge Venen (694 m)",
-         lat:50.50170, lng:6.09470, heading:200},
-        {v:"Locatie 4 — welke stad? Er staat een Sherman-tank op het plein.", a:"Bastogne — Place McAuliffe",
-         lat:50.00040, lng:5.71600, heading:120},
-        {v:"Locatie 5 — welke plek? Je staat op de grens van drie landen.", a:"Drielandenpunt, Vaals (Vaalserberg)",
-         lat:50.75430, lng:6.02090, heading:250},
-        {v:"Locatie 6 — welke stad aan de Maas?", a:"Dinant",
-         lat:50.26000, lng:4.91300, heading:20},
-        {v:"Locatie 7 — welk Ardens dorp met kasteelruïne op de rots?", a:"La Roche-en-Ardenne",
-         lat:50.18170, lng:5.57580, heading:300},
-        {v:"Locatie 8 — welke plaats, én in welk land? (moeilijk)", a:"Vianden — Luxemburg",
-         lat:49.93470, lng:6.20690, heading:40}
+        {v:"Wat was er eerder: Tom Hanks of Tom Cruise?", a:"Tom Hanks (9 juli 1956)"},
+        {v:"Wat was er eerder: Bream heet Bream of de BREEAM-certificering voor duurzame gebouwde omgeving ontstaat?", a:"BREEAM-certificering (2009)."},
+        {v:"Wat was er eerder: Stijn kotst voor het eerst op GCHC of Ewout kotst bij Daan's 21-diner?", a:"Stijn voor het eerst op GCHC (herfst 2015)"},
+        {v:"Wat was er eerder: de eerste warmtepomp wordt gebruikt of Joren krijgt de bijnaam 'Pompie' nadat hij is afgetrokken op een rotonde?", a:"De eerste warmtepomp (begin 20e eeuw)"},
+        {v:"Wat was er eerder: Barry schijt 'alles onder in Meppel' of Wout neemt de emergency XTC-pil?", a:"Wout met de emergency XTC-pil (ca. 2016/2017)"},
+        {v:"Wat was er eerder: de eerste persoon van IJzer wordt geboren of de bronzen beren in Hengelo?", a:"De eerste persoon van IJzer geboren (14 maart 1995)"},
+        {v:"Wat was er eerder: Yannis met een zeekoe op de foto of Smeg die een patatje bestelt een patatje en wordt erop geattendeerd dat ie volledig onder het bloed zit?", a:"Yannis met een zeekoe op de foto (ca. 2012)"}
       ]
     },
 
     /* ============================ RONDE 5 ============================ */
-    // {
-    //   naam:"Raad het geluid",
-    //   thema:"Twente & Hengelo",
-    //   kleur:"#cf5a4a",
-    //   intro:"Thuisronde. Als je hier onder de vijf blijft, mag je niet terug over de grens.",
-    //   type:"text",
-    //   vragen:[
-    //     {v:"In welk jaar werd FC Twente landskampioen?", a:"2010"},
-    //     {v:"Onder welke Engelse trainer gebeurde dat?", a:"Steve McClaren"},
-    //     {v:"Naar wie is het atletiekstadion in Hengelo vernoemd?", a:"Fanny Blankers-Koen (het FBK Stadion)"},
-    //     {v:"Welke Hengelose industrieel liet Tuindorp ’t Lansink bouwen voor zijn werknemers?", a:"C.T. Stork (Charles Theodorus Stork)"},
-    //     {v:"In welk oud Hengeloos fabriekscomplex zit sinds 2021 het Oyfo Techniekmuseum?", a:"Het Hazemeyer-complex"},
-    //     {v:"Welke Twentse stad heeft de bijnaam ‘Boeskoolstad’?", a:"Oldenzaal"},
-    //     {v:"Naar welke plaats is het biermerk Grolsch genoemd?", a:"Groenlo (‘Grol’)"},
-    //     {v:"Hengelo is de laatste Nederlandse stop van welke internationale trein richting Duitsland?", a:"De Intercity Berlijn (Amsterdam – Berlijn)"}
-    //   ]
-    // },
+    {
+      naam:"Raad het geluid",
+      thema:"Startup-sounds · consoles & PC",
+      kleur:"#cf5a4a",
+      intro:"Voor elk geluid speelt eerst 4 seconden van het Qmusic-jingle af, daarna het echte startupgeluid. Welk systeem of apparaat hoort erbij?",
+      type:"media",
+      vragen:[
+        {v:"Geluid 1 — welk systeem hoort bij dit startupgeluid?", a:"Microsoft Windows XP",
+         file:"media/Raad het geluid/Microsoft Windows XP Startup Sound.mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 2 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo DS",
+         file:"media/Raad het geluid/Nintendo DS startup intro (2004).mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 3 — welk systeem hoort bij dit startupgeluid?", a:"Game Boy",
+         file:"media/Raad het geluid/Nintendo GAMEBOY - Startup Screen.mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 4 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo GameCube",
+         file:"media/Raad het geluid/Nintendo Gamecube Startup (1080p 60fps).mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 5 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo Wii",
+         file:"media/Raad het geluid/Nintendo Wii Startup.mp3", start:4, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 6 — welk systeem hoort bij dit startupgeluid?", a:"Game Boy Advance",
+         file:"media/Raad het geluid/original game boy advance startup.mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 7 — welk systeem hoort bij dit startupgeluid?", a:"Sony PlayStation 2",
+         file:"media/Raad het geluid/Sony PlayStation 2 Startup.mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+        {v:"Geluid 8 — welk systeem hoort bij dit startupgeluid?", a:"Xbox 360",
+         file:"media/Raad het geluid/xbox 360 start up sound.mp3", start:0, duur:8,
+         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4}
+      ]
+    },
 
     /* ============================ RONDE 6 ============================ */
     // {
@@ -601,23 +613,29 @@ function mediaHtml(q, isFilm){
   const dur = q.duur || 20;
   const bs = (q.beepStart!=null) ? q.beepStart : 'null';
   const bd = (q.beepDur!=null) ? q.beepDur : 'null';
+  const introFile = q.introFile ? "'" + jsStr(q.introFile) + "'" : 'null';
+  const introStart = (q.introStart!=null) ? q.introStart : 0;
+  const introDur = (q.introDur!=null) ? q.introDur : 0;
+  const totalDur = Number(dur) + (q.introFile ? Number(introDur) : 0);
   const path = jsStr(q.file);
   const beeptag = (q.beepStart!=null && q.beepDur) ? '<div class="beeptag" id="beeptag">🔇 PIEP</div>' : '';
   const errbox = '<div class="mediaerr" id="mediaerr"></div>';
+  const label = q.introFile ? '▶ Speel fragment ('+totalDur+' s)' : '▶ Speel fragment ('+dur+' s)';
   if(isFilm){
     return '<div class="mediabox" id="mb">' + beeptag + errbox
       + '<div class="cover" id="cover"><div>'
-      + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',true,'+bs+','+bd+')">▶ Speel fragment ('+dur+' s)</div>'
+      + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',true,'+bs+','+bd+','+introFile+','+introStart+','+introDur+')">'+label+'</div>'
       + '<div class="timerpill">Titelbalk wordt afgeplakt</div></div></div></div>';
   }
   return '<div class="mediabox" id="mb">' + beeptag + errbox + '<div class="cover" id="cover"><div>'
     + '<div class="vinyl paused" id="vinyl"></div>'
-    + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+')">▶ Speel fragment ('+dur+' s)</div>'
+    + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+','+introFile+','+introStart+','+introDur+')">'+label+'</div>'
     + '<div class="timerpill" id="mtimer">geluid only — beeld blijft bedekt</div></div></div></div>';
 }
 
 let mediaTimer = null;
 let currentPlayer = null;
+let mediaSequenceTimer = null;
 let beepTimers = [];
 let beepCtx = null;
 let beepEl = null;      /* voorbereid <audio>-element met de piep erin */
@@ -625,13 +643,13 @@ let beepUrls = {};      /* cache: duur -> blob-url */
 let beepBufs = {};      /* cache: duur@samplerate -> AudioBuffer */
 
 /* ---- piep bijstellen ---- */
-const BEEP_FREQ = 400;  /* toonhoogte in Hz */
-const BEEP_VOL  = 0.05;  /* volume 0..1 */
+const BEEP_FREQ = 450;  /* toonhoogte in Hz */
+const BEEP_VOL  = 0.02;  /* volume 0..1 */
 /* Alleen voor de reserveroute (Web Audio). Browsers rekenen <audio>.volume
    niet altijd even lineair door als een GainNode, dus als de piep via de
    reserveroute nog steeds harder of zachter klinkt: zet dit lager (bv. 0.5)
    of hoger (bv. 2). 1 = precies dezelfde rekensom als de hoofdroute. */
-const BEEP_VOL_WEBAUDIO = 0.05;
+const BEEP_VOL_WEBAUDIO = 0.02;
 
 /* Bouwt een klein WAV-bestandje (blokgolf) van 'sec' seconden in het geheugen.
    Waarom via een <audio>-element en niet rechtstreeks via de Web Audio API?
@@ -741,6 +759,7 @@ function playBeepTone(sec){
 
 function destroyPlayer(){
   clearBeep();
+  if(mediaSequenceTimer){ clearTimeout(mediaSequenceTimer); mediaSequenceTimer = null; }
   if(currentPlayer){
     try{ currentPlayer.pause(); currentPlayer.remove(); }catch(e){}
   }
@@ -774,7 +793,7 @@ function showMediaError(msg){
 }
 
 /* lokaal audio/video-bestand afspelen (geen internet nodig) */
-window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
+window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur, introFile, introStart, introDur){
   const box = document.getElementById('mb');
   if(!box) return;
   destroyPlayer();
@@ -783,14 +802,6 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
   const el = document.createElement(isFilm ? 'video' : 'audio');
   if(isFilm) el.className = 'localvideo';
   el.preload = 'auto';
-  el.src = path;
-  el.addEventListener('loadedmetadata', ()=>{ try{ el.currentTime = start; }catch(e){} });
-  el.addEventListener('error', ()=>showMediaError(
-    'Bestand "'+path+'" kon niet geladen worden. Bestaat het pad, en staat het in de map naast dit HTML-bestand?'));
-  box.appendChild(el);
-  currentPlayer = el;
-  el.play().catch(()=>showMediaError(
-    'Kon "'+path+'" niet afspelen (browser blokkeerde het afspelen, of het bestand ontbreekt).'));
   const cover = document.getElementById('cover');
   if(isFilm){
     cover.remove();
@@ -800,9 +811,35 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
   } else {
     const v = document.getElementById('vinyl'); if(v) v.classList.remove('paused');
   }
+  let seekAt = start || 0;
+  let currentTotal = Number(dur) || 20;
+  if(introFile && introDur){ currentTotal += Number(introDur); }
+  el.addEventListener('loadedmetadata', ()=>{ try{ el.currentTime = seekAt; }catch(e){} });
+  el.addEventListener('error', ()=>showMediaError(
+    'Bestand "'+path+'" kon niet geladen worden. Bestaat het pad, en staat het in de map naast dit HTML-bestand?'));
+  box.appendChild(el);
+  currentPlayer = el;
+  const playPrimary = () => {
+    seekAt = start || 0;
+    el.src = path;
+    el.play().catch(()=>showMediaError(
+      'Kon "'+path+'" niet afspelen (browser blokkeerde het afspelen, of het bestand ontbreekt).'));
+  };
+  if(introFile && introDur){
+    seekAt = introStart || 0;
+    el.src = introFile;
+    el.play().catch(()=>showMediaError(
+      'Kon "'+introFile+'" niet afspelen (browser blokkeerde het afspelen, of het bestand ontbreekt).'));
+    mediaSequenceTimer = setTimeout(() => {
+      if(!currentPlayer || currentPlayer !== el) return;
+      playPrimary();
+    }, Number(introDur) * 1000);
+  } else {
+    playPrimary();
+  }
   primeBeep(beepDur);   /* nu, tijdens de klik, de piep vrijgeven */
   scheduleBeep(beepStart, beepDur);
-  let left = dur;
+  let left = currentTotal;
   const d = document.getElementById('mtimer');
   clearInterval(mediaTimer);
   mediaTimer = setInterval(()=>{
@@ -815,7 +852,7 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur){
       const vv = document.getElementById('vinyl'); if(vv) vv.classList.add('paused');
       if(d) d.textContent = 'fragment afgelopen — druk nogmaals voor herhaling';
       if(isFilm) box.insertAdjacentHTML('beforeend',
-        '<div class="cover"><div><div class="playbtn" onclick="playMedia(\''+jsStr(path)+'\','+start+','+dur+',true,'+(beepStart==null?'null':beepStart)+','+(beepDur==null?'null':beepDur)+')">↻ Nog een keer</div></div></div>');
+        '<div class="cover"><div><div class="playbtn" onclick="playMedia(\''+jsStr(path)+'\','+start+','+dur+',true,'+(beepStart==null?'null':beepStart)+','+(beepDur==null?'null':beepDur)+','+(introFile ? '\''+jsStr(introFile)+'\'' : 'null')+','+(introStart==null?0:introStart)+','+(introDur==null?0:introDur)+')">↻ Nog een keer</div></div></div>');
     }
   },1000);
 };
