@@ -123,6 +123,9 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
   padding:24px;background:rgba(5,5,5,.92);color:#ffb4a2;font-size:clamp(14px,1.6vw,20px);line-height:1.5}
 .mediaerr.on{display:grid}
 .mediaerr small{display:block;margin-top:10px;font-size:.7em;opacity:.8;color:var(--muted)}
+.imagebox{position:relative;margin-top:22px;border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);background:#000;aspect-ratio:16/9;max-height:52vh;margin-inline:auto;width:100%;max-width:960px}
+.imagebox img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#070b09;display:block}
 .cover{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
   background:radial-gradient(circle at 50% 40%,#1b2620,#080b09);z-index:3}
 .titlemask{position:absolute;left:0;right:0;top:0;height:22%;z-index:4;
@@ -263,11 +266,11 @@ const QUIZ = {
       intro:"We beginnen zachtjes. Aardrijkskunde van de route die we net gereden hebben, en van het lapje België waar we nu zitten.",
       type:"text",
       vragen:[
-        {v:"Büllingen is een gemeente en bestaat uit 27 plaatsen. In welke provincie ligt het?", a:"Liège, Wallonia"},
-        {v:"Sinds wanneer hoort Büllingen bij België?", a:"1919"},
-        {v:"Niet lang geleden was er een enorme natuurbrand in de Hoge Venen, ", a:"Nederlands, Frans en Duits"},
+        {v:"In welke provincie ligt Büllingen?", a:"Liège, Wallonia"},
+        {v:"Sinds 1919 hoort Büllingen bij België. Bij wie hoorde het daarvoor?", a:"Koninkrijk Pruisen (Duitsland is fout)"},
+        {v:"Niet lang geleden was er een enorme natuurbrand in de Hoge Venen, hoeveel Hectare is afgebrand? (100 ha speling)", a:"3200 hectare"},
         {v:"Wat is het hoogste punt van België, gelegen in de Hoge Venen?", a:"Signal de Botrange — 694 meter"},
-        {v:"De Ardennen strekken zich uit over meerdere landen. Noem ze allemaal", a:"België, Frankrijk, Luxemburg"},
+        {v:"De Ardennen strekken zich uit over meerdere landen. Noem ze allemaal.", a:"België, Frankrijk, Luxemburg"},
         {v:"Noem de voltallige naam van het racecircuit hier in de buurt.", a:"(Circuit de) Spa-Francorchamps"},
         {v:"Hoe worden de kogels afgevuurd van een paintball geweer?", a:"Perslucht of CO₂"},
         {v:"Nog 1 vraag", a:"komt nog"}
@@ -283,21 +286,21 @@ const QUIZ = {
       type:"media",
       vragen:[
         {v:"Fragment 1 — welke darter?", a:"Jonny Clayton",
-         file:"media/Round 2/Jonny Clayton Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:26, beepDur:6},
+         file:"media/Round 2 - walk ons/Jonny Clayton Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:26, beepDur:6},
         {v:"Fragment 2 — welke darter?", a:"Ryan Searle",
-         file:"media/Round 2/Ryan Searle Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:21.5, beepDur:7},
+         file:"media/Round 2 - walk ons/Ryan Searle Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:21.5, beepDur:7},
         {v:"Fragment 3 — welke darter?", a:"Justin Hood",
-         file:"media/Round 2/Justin Hood Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:19, beepDur:5},
+         file:"media/Round 2 - walk ons/Justin Hood Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:19, beepDur:5},
         {v:"Fragment 4 — welke darter?", a:"Luke Littler",
-         file:"media/Round 2/Luke Littler WALK ON (Greenlight) - World Darts Championship 2026 Final.mp3", start:0, duur:60, beepStart:41, beepDur:5},
+         file:"media/Round 2 - walk ons/Luke Littler WALK ON (Greenlight) - World Darts Championship 2026 Final.mp3", start:0, duur:60, beepStart:41, beepDur:5},
         {v:"Fragment 5 — welke darter?", a:"Krzysztof Ratajski",
-         file:"media/Round 2/Krzysztof Ratajski Walk on - World Darts Champioship 2026.mp3", start:0, duur:60, beepStart:25, beepDur:4},
+         file:"media/Round 2 - walk ons/Krzysztof Ratajski Walk on - World Darts Champioship 2026.mp3", start:0, duur:60, beepStart:25, beepDur:4},
         {v:"Fragment 6 — welke darter?", a:"Luke Humphries",
-         file:"media/Round 2/Luke Humphries Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:32, beepDur:6},
+         file:"media/Round 2 - walk ons/Luke Humphries Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:32, beepDur:6},
         {v:"Fragment 7 — welke darter?", a:"Gian van Veen",
-         file:"media/Round 2/Gian van Veen Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:17, beepDur:9},
+         file:"media/Round 2 - walk ons/Gian van Veen Walk On - 2026 World Darts Championship R4.mp3", start:0, duur:60, beepStart:17, beepDur:9},
         {v:"Fragment 8 — welke darter?", a:"Gary Anderson",
-         file:"media/Round 2/Gary Anderson Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:37, beepDur:9}
+         file:"media/Round 2 - walk ons/Gary Anderson Walk On - 2026 World Darts Championship QF.mp3", start:0, duur:60, beepStart:37, beepDur:9}
       ]
     },
 
@@ -310,28 +313,28 @@ const QUIZ = {
       type:"media",
       vragen:[
         {v:"Fragment 1 — van welk programma is dit de intro song?", a:"Het speelplein (Disney's Recess)",
-         file:"media/tunes/Disney's Recess (Opening Theme).mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/Disney's Recess (Opening Theme).mp3", start:0, duur:28},
         {v:"Fragment 2 — van welk programma is dit de intro song?", a:"Lingo",
-         file:"media/tunes/Lingo Theme (NL).mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/Lingo Theme (NL).mp3", start:0, duur:28},
         {v:"Fragment 3 — van welk programma is dit de intro song?", a:"Ned's Survival Gids",
-         file:"media/tunes/Ned's Declassified School Survival Guide - Intro  Theme Song.mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/Ned's Declassified School Survival Guide - Intro  Theme Song.mp3", start:0, duur:28},
         {v:"Fragment 4 — van welk programma is dit de intro song?", a:"Ratjetoe (Rugrats)",
-         file:"media/tunes/Rugrats Theme Song (HQ)  Episode Opening Credits  Nick Animation.mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/Rugrats Theme Song (HQ)  Episode Opening Credits  Nick Animation.mp3", start:0, duur:28},
         {v:"Fragment 5 — van welk programma is dit de intro song?", a:"South Park",
-         file:"media/tunes/South Park Instrumental Intro.mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/South Park Instrumental Intro.mp3", start:0, duur:28},
         {v:"Fragment 6 — van welk programma is dit de intro song?", a:"The Pink Panther Show",
-         file:"media/tunes/The Pink Panther Theme Music.mp3", start:0, duur:28},
+         file:"media/Round 3 - tunes/The Pink Panther Theme Music.mp3", start:0, duur:28},
         {v:"Fragment 7 — van welk programma is dit de intro song?", a:"The Simpsons",
-         file:"media/tunes/The Simpsons Opening Credits and Theme Song.mp3", start:16, duur:28},
+         file:"media/Round 3 - tunes/The Simpsons Opening Credits and Theme Song.mp3", start:16, duur:28},
         {v:"Fragment 8 — van welk programma is dit de intro song?", a:"Totally Spies",
-         file:"media/tunes/Totally Spies - Theme Song - Intro - Here We go [HQ Audio].mp3", start:0, duur:28}
+         file:"media/Round 3 - tunes/Totally Spies - Theme Song - Intro - Here We go [HQ Audio].mp3", start:0, duur:28}
       ]
     },
 
     /* ============================ RONDE 4 ============================ */
     {
       naam:"Wat was er eerder?",
-      thema:"Jaartallen · absurdia",
+      thema:"Jaartallen & gebeurtenissen",
       kleur:"#8b5cf6",
       intro:"Van elk tweetal: wat kwam eerst? Kies het vroegste moment.",
       type:"text",
@@ -349,56 +352,64 @@ const QUIZ = {
     /* ============================ RONDE 5 ============================ */
     {
       naam:"Raad het geluid",
-      thema:"Startup-sounds · consoles & PC",
+      thema:"Startup-sounds",
       kleur:"#cf5a4a",
-      intro:"Voor elk geluid speelt eerst 4 seconden van het Qmusic-jingle af, daarna het echte startupgeluid. Welk systeem of apparaat hoort erbij?",
+      intro:"Welk systeem of apparaat hoort erbij?",
       type:"media",
       vragen:[
         {v:"Geluid 1 — welk systeem hoort bij dit startupgeluid?", a:"Microsoft Windows XP",
-         file:"media/Raad het geluid/Microsoft Windows XP Startup Sound.mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Microsoft Windows XP Startup Sound.mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 2 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo DS",
-         file:"media/Raad het geluid/Nintendo DS startup intro (2004).mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Nintendo DS startup intro (2004).mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 3 — welk systeem hoort bij dit startupgeluid?", a:"Game Boy",
-         file:"media/Raad het geluid/Nintendo GAMEBOY - Startup Screen.mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Nintendo GAMEBOY - Startup Screen.mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 4 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo GameCube",
-         file:"media/Raad het geluid/Nintendo Gamecube Startup (1080p 60fps).mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Nintendo Gamecube Startup (1080p 60fps).mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 5 — welk systeem hoort bij dit startupgeluid?", a:"Nintendo Wii",
-         file:"media/Raad het geluid/Nintendo Wii Startup.mp3", start:4, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Nintendo Wii Startup.mp3", start:4, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 6 — welk systeem hoort bij dit startupgeluid?", a:"Game Boy Advance",
-         file:"media/Raad het geluid/original game boy advance startup.mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/original game boy advance startup.mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 7 — welk systeem hoort bij dit startupgeluid?", a:"Sony PlayStation 2",
-         file:"media/Raad het geluid/Sony PlayStation 2 Startup.mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4},
+         file:"media/Round 5 - Raad het geluid/Sony PlayStation 2 Startup.mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8},
         {v:"Geluid 8 — welk systeem hoort bij dit startupgeluid?", a:"Xbox 360",
-         file:"media/Raad het geluid/xbox 360 start up sound.mp3", start:0, duur:8,
-         introFile:"media/Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4}
+         file:"media/Round 5 - Raad het geluid/xbox 360 start up sound.mp3", start:0, duur:8.2,
+         introFile:"media/Round 5 - Raad het geluid/Wat is HET GELUID van 2025_  Qmusic.mp3", introStart:0, introDur:4.8}
       ]
     },
 
     /* ============================ RONDE 6 ============================ */
-    // {
-    //   naam:"De Galerij",
-    //   thema:"De vloeibare ronde",
-    //   kleur:"#c78a2e",
-    //   intro:"We zitten in het beste bierland ter wereld. Bewijs dat je dat verdient.",
-    //   type:"text",
-    //   vragen:[
-    //     {v:"Hoeveel erkende Trappistenbrouwerijen heeft België op dit moment?", a:"5"},
-    //     {v:"Welke abdij verloor in 2023 haar Trappistenlabel?", a:"Achel"},
-    //     {v:"Bij welk Trappistenbier hoort de legende van een gouden ring en een forel?", a:"Orval"},
-    //     {v:"Welk Belgisch bier drink je uit een glas zonder voet, dat in een houten houder moet staan?", a:"Kwak (Pauwel Kwak)"},
-    //     {v:"Wat is het alcoholpercentage van Westvleteren 12?", a:"10,2 %"},
-    //     {v:"Welke Belgische biersoort gist spontaan met wilde gisten uit de lucht in de Zennevallei?", a:"Lambiek (en daaruit geuze)"},
-    //     {v:"Wat betekent de biernaam ‘Duvel’?", a:"Duivel"},
-    //     {v:"Wat werd in 2016 door UNESCO erkend als immaterieel werelderfgoed van België?", a:"De Belgische biercultuur"}
-    //   ]
-    // },
+    {
+      naam:"Kerken in Twenne",
+      thema:"Kerkgebouwen · Twente",
+      kleur:"#c78a2e",
+      intro:"1 punt voor de naam, 1 punt voor de plaats.",
+      type:"image",
+      vragen:[
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Grote kerk in Neede",
+         file:"media/Round 6 - Kerken/Grote kerk in Neede.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Grote Kerk op de Oude markt in Enschede",
+         file:"media/Round 6 - Kerken/Grote Kerk op de Oude markt in Enschede.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Martinuskerk in Markelo",
+         file:"media/Round 6 - Kerken/Martinuskerk in Markelo.JPG"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Onze lieve vrouwekerk in Hengelo",
+         file:"media/Round 6 - Kerken/Onze lieve vrouwekerk in Hengelo.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Parochiekerk in Mariaprochie",
+         file:"media/Round 6 - Kerken/Parochiekerk in Mariaprochie.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"St. Plechelmusbaseliek in Oldenzaal",
+         file:"media/Round 6 - Kerken/St. Plechelmusbaseliek in Oldenzaal.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"St. Stephanuskerk in Bonne",
+         file:"media/Round 6 - Kerken/St. Stephanuskerk in Bonne.jpg"},
+        {v:"Wat is de naam en plaats van deze kerk?", a:"Yunus Emre Moskee in Almelo",
+         file:"media/Round 6 - Kerken/Yunus Emre Moskee in Almelo.jpg"}
+      ]
+    },
 
     /* ============================ RONDE 7 ============================ */
     // {
@@ -420,6 +431,26 @@ const QUIZ = {
     // },
 
     /* ============================ RONDE 8 ============================ */
+    {
+      naam:"Minigames",
+      thema:"Mini-games & raadsels",
+      kleur:"#e2574c",
+      intro:"Los de volgende minigames op!",
+      type:"image",
+      vragen:[
+        {v:"Wat is de oplossing van deze 2 voor 12 Paardensprong?", a:"Nachtbus",
+         file:"media/Round 8 - minigames/2voor12.png"},
+        {v:"Waar zit het goud?", a:"Koffer 2 (koffer 1 heeft de ware uitspraak)",
+         file:"media/Round 8 - minigames/logica.png"},
+        {v:"Rekenen en taal: Welk woord hoort op de plaats van de puntjes?", a:"Oor",
+         file:"media/Round 8 - minigames/mesoptafel.png"},
+        {v:"Oeps de letters zijn door elkaar gehusseld, weet jij wat het is?", a:"Apeldoorn",
+         file:"media/Round 8 - minigames/NS.png"},
+        {v:"Welke 3 verbanden zoeken we?", a:"Mars (1/2 punt), knoflook (1/2 punt), truffel (1/2 punt)",
+         file:"media/Round 8 - minigames/slimstemens.png"}
+      ]
+    },
+
     // {
     //   naam:"Alles of Niets",
     //   thema:"Finale · inzetronde",
@@ -582,7 +613,12 @@ function qBody(s){
   const q = s.q;
   if (s.r.type === 'streetview') return svHtml(q);
   if (s.r.type === 'media' && q.file !== null) return mediaHtml(q, !!q.film);
+  if (s.r.type === 'image' && q.file) return imageHtml(q);
   return '';
+}
+
+function imageHtml(q){
+  return '<div class="imagebox"><img src="'+jsStr(q.file)+'" alt="'+esc(q.v)+'"></div>';
 }
 
 function qPeek(s){
