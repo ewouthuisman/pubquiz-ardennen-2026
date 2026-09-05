@@ -70,7 +70,7 @@ Reken op ± 1 minuut per vraag, iets meer bij Street View. Loopt het uit: schrap
 
 ## Puntentelling
 
-- 1 punt per goed antwoord. 64 vragen totaal.
+- 1 punt per goed antwoord. 78 vragen totaal.
 - Waar het antwoord uit twee delen bestaat (bijvoorbeeld Botrange + hoogte, of Vianden + land) staat de verdeling in de toelichting op de nakijksheet.
 - **Ronde 8 is een inzetronde.** Teams zetten per vraag vooraf 1, 2 of 3 punten in. Goed = erbij, fout = eraf. Vraag ze de inzet op te schrijven *voordat* je de vraag voorleest, anders werkt het niet.
 - Bij schattingsvragen wint het team dat er het dichtst bij zit; marges staan op de nakijksheet.

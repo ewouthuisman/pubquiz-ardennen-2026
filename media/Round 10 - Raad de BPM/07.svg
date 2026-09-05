@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" role="img" aria-labelledby="title desc">
+  <title id="title">BPM clue seven</title>
+  <desc id="desc">Abstract gold tempo marks on a dark background.</desc>
+  <rect width="1600" height="500" fill="#0a0f0d"/>
+  <g fill="none" stroke="#e0a83a" stroke-linecap="round">
+    <path d="M120 250h90M300 250h120M510 250h60M650 250h170M920 250h80M1080 250h110M1300 250h180" stroke-width="18"/>
+    <path d="M120 180h90M300 165h120M510 195h60M650 130h170M920 185h80M1080 155h110M1300 175h180" stroke-width="6" opacity=".65"/>
+    <path d="M120 320h90M300 335h120M510 305h60M650 370h170M920 315h80M1080 345h110M1300 325h180" stroke-width="6" opacity=".65"/>
+  </g>
+  <g fill="#f2c568">
+    <circle cx="255" cy="250" r="10"/><circle cx="475" cy="250" r="10"/><circle cx="860" cy="250" r="10"/><circle cx="1015" cy="250" r="10"/><circle cx="1240" cy="250" r="10"/>
+  </g>
+</svg>

@@ -33,7 +33,8 @@ const SER = (o) => Object.assign({ fontFace: 'Cambria', color: INK }, o);
   s.addText(QUIZ.datum.toUpperCase(), T({ x: 0, y: 1.75, w: W, h: 0.35, align: 'center', fontSize: 13, color: GOLD, bold: true, charSpacing: 5 }));
   s.addText(QUIZ.titel, SER({ x: 0.6, y: 2.15, w: W - 1.2, h: 1.9, align: 'center', fontSize: 58, bold: true, color: INK }));
   s.addText(QUIZ.subtitel, T({ x: 0, y: 4.15, w: W, h: 0.45, align: 'center', fontSize: 20, color: MUTED, italic: true }));
-  const chips = [QUIZ.locatie, QUIZ.vanuit, '8 rondes · 64 vragen'];
+  const totalQuestions = QUIZ.rondes.reduce((sum, round) => sum + round.vragen.length, 0);
+  const chips = [QUIZ.locatie, QUIZ.vanuit, QUIZ.rondes.length + ' rondes · ' + totalQuestions + ' vragen'];
   const cw = 3.7, gap = 0.25, totalW = chips.length * cw + (chips.length - 1) * gap;
   chips.forEach((c, n) => {
     s.addShape(pres.ShapeType.roundRect, {
@@ -172,7 +173,8 @@ QUIZ.rondes.forEach((r, ri) => {
     x: M, y: 2.1, w: W - M * 2, colW: [0.9, (W - M * 2) - 2.9, 2.0], rowH: 0.62,
     fontFace: 'Calibri', border: { type: 'solid', color: '2A3A31', pt: 1 }, fill: { color: PANEL }, valign: 'middle'
   });
-  s.addText('Maximaal 64 punten plus bonussen. Ronde 8 kan pijn doen.', T({ x: M, y: 6.3, w: 10, h: 0.4, fontSize: 13, color: MUTED, italic: true }));
+  const totalQuestions = QUIZ.rondes.reduce((sum, round) => sum + round.vragen.length, 0);
+  s.addText('Maximaal ' + totalQuestions + ' punten plus bonussen.', T({ x: M, y: 6.3, w: 10, h: 0.4, fontSize: 13, color: MUTED, italic: true }));
 }
 
 /* ---------- slot ---------- */

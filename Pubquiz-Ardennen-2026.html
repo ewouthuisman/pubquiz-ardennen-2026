@@ -126,6 +126,15 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
 .imagebox{position:relative;margin-top:22px;border-radius:16px;overflow:hidden;
   border:1px solid var(--line);background:#000;aspect-ratio:16/9;max-height:52vh;margin-inline:auto;width:100%;max-width:960px}
 .imagebox img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#070b09;display:block}
+.questionimage{aspect-ratio:16/5;max-height:24vh;margin-top:14px}
+.questionimage img{object-fit:cover}
+.bpm-image{aspect-ratio:16/9;max-height:52vh;margin-top:22px}
+.bpm-image img{object-fit:contain}
+.bpm-player{position:relative;margin:12px auto 0;text-align:center;min-height:58px}
+.bpm-player audio{display:none}
+.bpm-player .playbtn{padding:8px 18px;font-size:13px}
+.bpm-player .timerpill{display:inline-block;margin:0 0 0 10px;font-size:12px;letter-spacing:.12em}
+.bpm-player .mediaerr{position:relative;inset:auto;margin:10px auto 0;max-width:520px;border-radius:8px}
 .cover{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
   background:radial-gradient(circle at 50% 40%,#1b2620,#080b09);z-index:3}
 .titlemask{position:absolute;left:0;right:0;top:0;height:22%;z-index:4;
@@ -252,7 +261,7 @@ const QUIZ = {
 
   spelregels: [
     "Teams van 2. Kies een naam.",
-    "8 rondes van 8 vragen. Eén punt per goed antwoord, tenzij anders vermeld.",
+    "Eén punt per goed antwoord, tenzij anders vermeld.",
     "Na elke 2 rondes wisselen we de antwoordbladen en kijken we elkaars werk na.",
     "De quizmaster heeft altijd gelijk. Ook als hij ongelijk heeft.",
   ],
@@ -460,23 +469,58 @@ const QUIZ = {
       ]
     },
 
-    // {
-    //   naam:"Alles of Niets",
-    //   thema:"Finale · inzetronde",
-    //   kleur:"#e2574c",
-    //   intro:"Laatste ronde, en nu met inzet. Per vraag zet je vooraf 1, 2 of 3 punten in. Goed = erbij. Fout = eraf. Ja, je kunt hierdoor negatief eindigen.",
-    //   type:"text",
-    //   vragen:[
-    //     {v:"Hoeveel inwoners had de gemeente Büllingen op 1 januari 2024?", a:"5.544"},
-    //     {v:"Welk percentage van de gemeente Büllingen is bos?", a:"46,5 %"},
-    //     {v:"Hoe groot is België in vierkante kilometers?", a:"30.688 km²"},
-    //     {v:"Hoeveel dagen duurde het Ardennenoffensief (16 december 1944 – 25 januari 1945)?", a:"41 dagen"},
-    //     {v:"Hoeveel gouden medailles won Fanny Blankers-Koen op de Spelen van 1948 in Londen?", a:"4"},
-    //     {v:"In welk jaar werd FC Twente opgericht, uit de fusie van Sportclub Enschede en Enschedese Boys?", a:"1965"},
-    //     {v:"Hoeveel inwoners heeft de gemeente Hengelo ongeveer?", a:"± 81.000"},
-    //     {v:"Slotvraag: hoeveel kilometer rijden wij dit weekend in totaal — heen én terug?", a:"± 570 km"}
-    //   ]
-    // }
+    /* ============================ RONDE 9 ============================ */
+    {
+      naam:"Trekkers & tractors",
+      thema:"Trekkers & tractors",
+      kleur:"#e2574c",
+      intro:"Raad het merk en typenummer!",
+      type:"image",
+      vragen:[
+        {v:"Welk merk en type trekker zien we hier?", a:"6320",
+        file:"media/Round 9 - Trekkers/6320.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Claas Xerion 12",
+        file:"media/Round 9 - Trekkers/Claas Xerion 12.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Deutz-Fahr 8280",
+        file:"media/Round 9 - Trekkers/deutzfahr 8280.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Fendt 630 Vario",
+        file:"media/Round 9 - Trekkers/Fendt 630 vario.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Fiat 211R",
+        file:"media/Round 9 - Trekkers/Fiat 211R.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Ford 8830",
+        file:"media/Round 9 - Trekkers/ford 8830.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Lamborghini Champion 150",
+        file:"media/Round 9 - Trekkers/lamborghini champion 150.jpg"},
+        {v:"Welk merk en type trekker zien we hier?", a:"Massey Ferguson 6190",
+        file:"media/Round 9 - Trekkers/Massey furgenson 6190.jpeg"},
+      ]
+    },
+
+    /* ============================ RONDE 10 =========================== */
+    {
+      naam:"Raad de BPM",
+      thema:"Muziek · beats per minute",
+      kleur:"#e0a83a",
+      intro:"Luister naar het fragment en schat het tempo. Hoeveel beats per minute telt dit nummer?",
+      type:"media",
+      vragen:[
+        {v:"Hoeveel BPM telt dit nummer? Bonuspunt: Hoe heet dit nummer en wie is de artiest?", a:"BPM 1 (invullen)",
+         image:"media/Round 10 - Raad de BPM/01.svg",file:"media/Round 10 - Raad de BPM/Dirk.mp3", start:51, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Voor als je wil shazammen: Bössels - Your Soul is Mine)", a:"BPM 2 (invullen)",
+         file:"media/Round 10 - Raad de BPM/Bössels - Your Soul Is Mine.mp3", start:90, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix))", a:"BPM 3 (invullen)",
+         file:"media/Round 10 - Raad de BPM/Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix) (mp3cut.net).mp3", start:0, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Lizzy - Speel niet met m'n voeten)", a:"BPM 4 (invullen)",
+         file:"media/Round 10 - Raad de BPM/Lizzy - Speel niet met m'n voeten.mp3", start:0, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (De Mannen van de Bouw - De Bouw is Wauw)", a:"BPM 5 (invullen)",
+         file:"media/Round 10 - Raad de BPM/De Mannen van de Bouw - De Bouw is Wauw.mp3", start:19, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Henk Wijngaard - Ik Heb 'n Truck Als M'n Woning)", a:"BPM 6 (invullen)",
+         file:"media/Round 10 - Raad de BPM/Ik Heb 'n Truck Als M'n Woning.mp3", start:0, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Jannes - Eleonora)", a:"BPM 7 (invullen)",
+         file:"media/Round 10 - Raad de BPM/Jannes - Eleonora.mp3", start:0, duur:45,
+         image:"media/Round 10 - Raad de BPM/07.svg"},
+      ]
+    },
   ],
 
   teams: ["", "", "", "", ""]   // vul namen in voor de eindstand-slide, of laat leeg
@@ -500,6 +544,8 @@ const RING_CIRC = 326.726;
 const slides = [];
 slides.push({kind:'title'});
 slides.push({kind:'rules'});
+const totalRounds = QUIZ.rondes.length;
+const totalQuestions = QUIZ.rondes.reduce((sum, round) => sum + round.vragen.length, 0);
 
 QUIZ.rondes.forEach((r, ri) => {
   slides.push({kind:'round', r, ri});
@@ -543,7 +589,7 @@ function render(){
       + '<div class="rule" style="width:180px;margin:26px auto;background:linear-gradient(to right,transparent,var(--gold),transparent)"></div>'
       + '<div class="sub">'+esc(QUIZ.subtitel)+'</div>'
       + '<div class="meta"><div class="chip">'+esc(QUIZ.locatie)+'</div>'
-      + '<div class="chip">8 rondes · 64 vragen</div></div></div>';
+      + '<div class="chip">'+totalRounds+' rondes · '+totalQuestions+' vragen</div></div></div>';
     break;
 
   case 'rules':
@@ -589,7 +635,7 @@ function render(){
       + '<h2>Eindstand</h2><table class="score"><tr><th></th><th>Team</th>'
       + '<th style="width:120px">Punten</th></tr>'
       + QUIZ.teams.map((t,n)=>'<tr><td>'+(n+1)+'</td><td>'+(esc(t)||'&nbsp;')+'</td><td>&nbsp;</td></tr>').join('')
-      + '</table><div class="hint">Maximaal te halen: 64 punten plus bonussen. Ronde 8 kan pijn doen.</div></div>';
+      + '</table><div class="hint">Maximaal te halen: '+totalQuestions+' punten plus bonussen.</div></div>';
     break;
 
   case 'end':
@@ -621,13 +667,29 @@ function qHead(s){
 function qBody(s){
   const q = s.q;
   if (s.r.type === 'streetview') return svHtml(q);
-  if (s.r.type === 'media' && q.file !== null) return mediaHtml(q, !!q.film);
+  if (s.r.type === 'media' && q.image) return bpmHtml(q);
+  if (s.r.type === 'media' && q.file !== null){
+    return mediaHtml(q, !!q.film);
+  }
   if (s.r.type === 'image' && q.file) return imageHtml(q);
   return '';
 }
 
-function imageHtml(q){
-  return '<div class="imagebox"><img src="'+jsStr(q.file)+'" alt="'+esc(q.v)+'"></div>';
+function imageHtml(q, compact){
+  return '<div class="imagebox'+(compact ? ' questionimage' : '')+'"><img src="'+jsStr(q.file)+'" alt="'+esc(q.v)+'"></div>';
+}
+
+function bpmHtml(q){
+  const path = jsStr(q.file);
+  const st = q.start || 0;
+  const dur = q.duur || 20;
+  const bs = (q.beepStart!=null) ? q.beepStart : 'null';
+  const bd = (q.beepDur!=null) ? q.beepDur : 'null';
+  const label = '▶ Speel fragment ('+dur+' s)';
+  return imageHtml({file:q.image, v:q.v}, false).replace('class="imagebox"', 'class="imagebox bpm-image"')
+    + '<div class="bpm-player" id="mb"><div class="mediaerr" id="mediaerr"></div>'
+    + '<button class="playbtn" type="button" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+',null,0,0)">'+label+'</button>'
+    + '<div class="timerpill" id="mtimer">audio</div></div>';
 }
 
 function qPeek(s){
