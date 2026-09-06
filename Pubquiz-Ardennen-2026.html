@@ -130,6 +130,16 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
 .questionimage img{object-fit:cover}
 .bpm-image{aspect-ratio:16/9;max-height:52vh;margin-top:22px}
 .bpm-image img{object-fit:contain}
+.bpm-stage{isolation:isolate}
+.bpm-stage .bpm-floater{position:absolute;z-index:2;width:clamp(76px,11vw,150px);height:clamp(76px,11vw,150px);
+  object-fit:contain;border:2px solid var(--gold);border-radius:12px;background:rgba(7,11,9,.72);
+  box-shadow:0 8px 24px rgba(0,0,0,.5);pointer-events:none;animation:bpm-cross var(--bpm-duration,14s) linear infinite alternate;
+  animation-delay:var(--bpm-delay,0s)}
+@keyframes bpm-cross{
+  0%{left:var(--bpm-x-start);top:var(--bpm-y-start);transform:rotate(var(--bpm-rotate-start)) scale(.86)}
+  48%{left:var(--bpm-x-mid);top:var(--bpm-y-mid);transform:rotate(var(--bpm-rotate-mid)) scale(1)}
+  100%{left:var(--bpm-x-end);top:var(--bpm-y-end);transform:rotate(var(--bpm-rotate-end)) scale(.9)}
+}
 .bpm-player{position:relative;margin:12px auto 0;text-align:center;min-height:58px}
 .bpm-player audio{display:none}
 .bpm-player .playbtn{padding:8px 18px;font-size:13px}
@@ -137,8 +147,6 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
 .bpm-player .mediaerr{position:relative;inset:auto;margin:10px auto 0;max-width:520px;border-radius:8px}
 .cover{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
   background:radial-gradient(circle at 50% 40%,#1b2620,#080b09);z-index:3}
-.titlemask{position:absolute;left:0;right:0;top:0;height:22%;z-index:4;
-  background:linear-gradient(to bottom,#000 60%,transparent);pointer-events:none}
 .vinyl{width:min(210px,26vh);height:min(210px,26vh);border-radius:50%;margin:0 auto 18px;
   background:repeating-radial-gradient(circle at 50% 50%,#151b18 0 3px,#0d1210 3px 6px);
   border:1px solid rgba(255,255,255,.1);display:grid;place-items:center;animation:spin 6s linear infinite}
@@ -504,20 +512,20 @@ const QUIZ = {
       intro:"Luister naar het fragment en schat het tempo. Hoeveel beats per minute telt dit nummer?",
       type:"media",
       vragen:[
-        {v:"Hoeveel BPM telt dit nummer? Bonuspunt: Hoe heet dit nummer en wie is de artiest?", a:"BPM 1 (invullen)",
-         image:"media/Round 10 - Raad de BPM/IMG_3592.jpeg",file:"media/Round 10 - Raad de BPM/Dirk.mp3", start:51, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Voor als je wil shazammen: Bössels - Your Soul is Mine)", a:"BPM 2 (invullen)",
+        {v:"Hoeveel BPM telt dit nummer? Bonuspunt: Hoe heet dit nummer en wie is de artiest?", a:"155",
+         image:"media/Round 10 - Raad de BPM/IMG_3592.jpeg",file:"media/Round 10 - Raad de BPM/Dirk.mp4", start:51, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Voor als je wil shazammen: Bössels - Your Soul is Mine)", a:"215",
          file:"media/Round 10 - Raad de BPM/Bössels - Your Soul Is Mine.mp3", start:90, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix))", a:"BPM 3 (invullen)",
-         file:"media/Round 10 - Raad de BPM/Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix) (mp3cut.net).mp3", start:0, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Lizzy - Speel niet met m'n voeten)", a:"BPM 4 (invullen)",
+        {v:"Hoeveel BPM telt dit nummer? (Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix))", a:"210",
+         file:"media/Round 10 - Raad de BPM/Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix) (mp3cut.net).mp4", start:0, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Lizzy - Speel niet met m'n voeten)", a:"134",
          file:"media/Round 10 - Raad de BPM/Lizzy - Speel niet met m'n voeten.mp3", start:0, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (De Mannen van de Bouw - De Bouw is Wauw)", a:"BPM 5 (invullen)",
+        {v:"Hoeveel BPM telt dit nummer? (De Mannen van de Bouw - De Bouw is Wauw)", a:"156",
          file:"media/Round 10 - Raad de BPM/De Mannen van de Bouw - De Bouw is Wauw.mp3", start:19, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Henk Wijngaard - Ik Heb 'n Truck Als M'n Woning)", a:"BPM 6 (invullen)",
+        {v:"Hoeveel BPM telt dit nummer? (Henk Wijngaard - Ik Heb 'n Truck Als M'n Woning)", a:"120",
          file:"media/Round 10 - Raad de BPM/Ik Heb 'n Truck Als M'n Woning.mp3", start:0, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Jannes - Eleonora)", a:"BPM 7 (invullen)",
-         file:"media/Round 10 - Raad de BPM/Jannes - Eleonora.mp3", start:0, duur:45,
+        {v:"Hoeveel BPM telt dit nummer? (Jannes - Eleonora)", a:"128",
+         file:"media/Round 10 - Raad de BPM/Jannes - Eleonora.mp4", start:0, duur:180,
          image:"media/Round 10 - Raad de BPM/IMG_6569.jpeg"},
       ]
     },
@@ -667,7 +675,7 @@ function qHead(s){
 function qBody(s){
   const q = s.q;
   if (s.r.type === 'streetview') return svHtml(q);
-  if (s.r.type === 'media' && q.image) return bpmHtml(q);
+  if (s.r.type === 'media' && (q.image || /\.mp4$/i.test(q.file || ''))) return bpmHtml(q);
   if (s.r.type === 'media' && q.file !== null){
     return mediaHtml(q, !!q.film);
   }
@@ -685,11 +693,28 @@ function bpmHtml(q){
   const dur = q.duur || 20;
   const bs = (q.beepStart!=null) ? q.beepStart : 'null';
   const bd = (q.beepDur!=null) ? q.beepDur : 'null';
+  const isVideo = /\.mp4$/i.test(q.file || '');
   const label = '▶ Speel fragment ('+dur+' s)';
-  return imageHtml({file:q.image, v:q.v}, false).replace('class="imagebox"', 'class="imagebox bpm-image"')
-    + '<div class="bpm-player" id="mb"><div class="mediaerr" id="mediaerr"></div>'
-    + '<button class="playbtn" type="button" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+',null,0,0)">'+label+'</button>'
-    + '<div class="timerpill" id="mtimer">audio</div></div>';
+  const floater = q.image
+    ? '<img class="bpm-floater" src="'+jsStr(q.image)+'" alt="" style="'+randomBpmMotion()+'">'
+    : '';
+  return '<div class="mediabox bpm-stage" id="mb"><div class="mediaerr" id="mediaerr"></div>'
+    + '<div class="cover" id="cover"><div>'
+    + (isVideo ? '' : '<div class="vinyl paused" id="vinyl"></div>')
+    + '<button class="playbtn" type="button" onclick="playMedia(\''+path+'\','+st+','+dur+','+isVideo+','+bs+','+bd+',null,0,0)">'+label+'</button>'
+    + '<div class="timerpill" id="mtimer">'+(isVideo ? 'beeld en geluid' : 'geluid only')+'</div></div></div>'
+    + floater + '</div>'
+    + '<div class="bpm-player" id="mb-controls"></div>';
+}
+
+function randomBpmMotion(){
+  const edge = () => Math.round(8 + Math.random() * 70) + '%';
+  const angle = () => Math.round(-14 + Math.random() * 28) + 'deg';
+  return '--bpm-x-start:'+edge()+';--bpm-y-start:'+edge()+';'
+    + '--bpm-x-mid:'+edge()+';--bpm-y-mid:'+edge()+';'
+    + '--bpm-x-end:'+edge()+';--bpm-y-end:'+edge()+';'
+    + '--bpm-rotate-start:'+angle()+';--bpm-rotate-mid:'+angle()+';--bpm-rotate-end:'+angle()+';'
+    + '--bpm-duration:'+(10 + Math.round(Math.random()*8))+'s;--bpm-delay:'+(-Math.round(Math.random()*8))+'s';
 }
 
 function qPeek(s){
@@ -912,9 +937,6 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur, introF
   const cover = document.getElementById('cover');
   if(isFilm){
     cover.remove();
-    const mask = document.createElement('div');
-    mask.className = 'titlemask';
-    box.appendChild(mask);
   } else {
     const v = document.getElementById('vinyl'); if(v) v.classList.remove('paused');
   }
