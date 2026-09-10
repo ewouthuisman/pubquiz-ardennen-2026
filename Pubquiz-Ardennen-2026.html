@@ -126,6 +126,9 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
 .imagebox{position:relative;margin-top:22px;border-radius:16px;overflow:hidden;
   border:1px solid var(--line);background:#000;aspect-ratio:16/9;max-height:52vh;margin-inline:auto;width:100%;max-width:960px}
 .imagebox img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#070b09;display:block}
+.imagepair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px auto 0;width:100%;max-width:960px}
+.imagepair .imagebox{margin:0;max-width:none;aspect-ratio:1/1;max-height:42vh}
+@media (max-width:600px){.imagepair{grid-template-columns:1fr}.imagepair .imagebox{max-height:30vh}}
 .questionimage{aspect-ratio:16/5;max-height:24vh;margin-top:14px}
 .questionimage img{object-fit:cover}
 .bpm-image{aspect-ratio:16/9;max-height:52vh;margin-top:22px}
@@ -160,6 +163,19 @@ h2{font-family:Georgia,serif;font-size:clamp(30px,4.6vw,72px);line-height:1.03;f
 .missing{color:#ffb4a2;font-size:14px;margin-top:12px;max-width:520px;line-height:1.5}
 .svlink{display:inline-block;margin-top:14px;font-size:13px;color:var(--muted);text-decoration:none;
   border-bottom:1px dotted var(--muted)}
+
+/* songtekst naast het fragment */
+.media-lyrics-row{display:flex;gap:16px;align-items:stretch;margin-top:22px;
+  max-width:1200px;margin-inline:auto}
+.media-lyrics-row .mediabox{margin-top:0;margin-inline:0;flex:1 1 0;max-width:none;min-width:0}
+.lyrics-panel{flex:0 0 clamp(200px,24vw,300px);max-width:300px;background:#0d1310;
+  border:1px solid var(--line);border-radius:16px;padding:14px 18px;
+  max-height:52vh;display:flex;flex-direction:column}
+.lyrics-head{flex:0 0 auto;font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:10px}
+.lyrics-scroll{flex:1 1 auto;overflow:hidden;position:relative}
+.lyrics-text{color:var(--gold2);font-size:clamp(12px,1.15vw,16px);line-height:1.6;
+  white-space:pre-wrap;will-change:transform}
 
 /* streetview */
 .svbox{position:relative;margin-top:18px;border-radius:16px;overflow:hidden;border:1px solid var(--line);
@@ -289,8 +305,8 @@ const QUIZ = {
         {v:"Wat is het hoogste punt van België, gelegen in de Hoge Venen?", a:"Signal de Botrange — 694 meter"},
         {v:"De Ardennen strekken zich uit over meerdere landen. Noem ze allemaal.", a:"België, Frankrijk, Luxemburg"},
         {v:"Noem de voltallige naam van het racecircuit hier in de buurt.", a:"(Circuit de) Spa-Francorchamps"},
-        {v:"Hoe worden de kogels afgevuurd van een paintball geweer?", a:"Perslucht of CO₂"},
-        {v:"Nog 1 vraag", a:"komt nog"}
+        {v:"[placeholder1]", a:"komt nog"},
+        {v:"[placeholder2]", a:"komt nog"}
       ]
     },
 
@@ -356,13 +372,14 @@ const QUIZ = {
       intro:"Van elk tweetal: wat kwam eerst? Kies het vroegste moment.",
       type:"text",
       vragen:[
-        {v:"Wat was er eerder: Tom Hanks of Tom Cruise?", a:"Tom Hanks (9 juli 1956)"},
-        {v:"Wat was er eerder: Bream heet Bream of de BREEAM-certificering voor duurzame gebouwde omgeving ontstaat?", a:"BREEAM-certificering (2009)."},
-        {v:"Wat was er eerder: Stijn kotst voor het eerst op GCHC of Ewout kotst bij Daan's 21-diner?", a:"Stijn voor het eerst op GCHC (herfst 2015)"},
-        {v:"Wat was er eerder: de eerste warmtepomp wordt gebruikt of Joren krijgt de bijnaam 'Pompie' nadat hij is afgetrokken op een rotonde?", a:"De eerste warmtepomp (begin 20e eeuw)"},
-        {v:"Wat was er eerder: Barry schijt 'alles onder in Meppel' of Wout neemt de emergency XTC-pil?", a:"Wout met de emergency XTC-pil (ca. 2016/2017)"},
-        {v:"Wat was er eerder: de eerste persoon van IJzer wordt geboren of de bronzen beren in Hengelo?", a:"De eerste persoon van IJzer geboren (14 maart 1995)"},
-        {v:"Wat was er eerder: Yannis met een zeekoe op de foto of Smeg die een patatje bestelt een patatje en wordt erop geattendeerd dat ie volledig onder het bloed zit?", a:"Yannis met een zeekoe op de foto (ca. 2012)"}
+        {v:"Wat was er eerder: Tom Hanks of Tom Cruise?", a:"Tom Hanks (9 juli 1956)", images:["media/Round 4 - wat was er eerder/Tom Hanks.jpeg","media/Round 4 - wat was er eerder/Tom Cruise.jpeg"]},
+        {v:"Wat was er eerder: Bream heet Bream of de BREEAM-certificering voor duurzame gebouwde omgeving ontstaat?", a:"BREEAM-certificering (2009).", images:["media/Round 4 - wat was er eerder/Bream.jpeg","media/Round 4 - wat was er eerder/BREEAM.jpeg"]},
+        {v:"Wat was er eerder: Stijn kotst voor het eerst op GCHC of Ewout kotst bij Daan's 21-diner?", a:"Stijn voor het eerst op GCHC (herfst 2015)", images:["media/Round 4 - wat was er eerder/Stijn.jpeg","media/Round 4 - wat was er eerder/Ewout.jpeg"]},
+        {v:"Wat was er eerder: de eerste warmtepomp wordt gebruikt of Joren krijgt de bijnaam 'Pompie' nadat hij is afgetrokken op een rotonde?", a:"De eerste warmtepomp (begin 20e eeuw)", images:["media/Round 4 - wat was er eerder/waterpomp.jpeg","media/Round 4 - wat was er eerder/pompie.jpeg"]},
+        {v:"Wat was er eerder: Barry schijt 'alles onder in Meppel' of Wout neemt de emergency XTC-pil?", a:"Wout met de emergency XTC-pil (ca. 2016/2017)", images:["media/Round 4 - wat was er eerder/kolk.jpeg","media/Round 4 - wat was er eerder/wout.jpeg"]},
+        {v:"Wat was er eerder: de eerste persoon van IJzer wordt geboren of de bronzen beren in Hengelo?", a:"De eerste persoon van IJzer geboren (14 maart 1995)", images:["media/Round 4 - wat was er eerder/man van ijzer.jpeg","media/Round 4 - wat was er eerder/beren.jpeg"]},
+        {v:"Wat was er eerder: Yannis met een zeekoe op de foto of Smeg die een patatje bestelt een patatje en wordt erop geattendeerd dat ie volledig onder het bloed zit?", a:"Yannis met een zeekoe op de foto (ca. 2012)", images:["media/Round 4 - wat was er eerder/jeans.jpeg","media/Round 4 - wat was er eerder/daan.jpeg"]},
+        {v:"Wat was er eerder?", a:"Half vaag met tosti", images:["media/Round 4 - wat was er eerder/half vaag met tosti.jpeg","media/Round 4 - wat was er eerder/haar kort.jpeg"]}
       ]
     },
 
@@ -509,24 +526,165 @@ const QUIZ = {
       naam:"Raad de BPM",
       thema:"Muziek · beats per minute",
       kleur:"#e0a83a",
-      intro:"Luister naar het fragment en schat het tempo. Hoeveel beats per minute telt dit nummer?",
+      intro:"Luister naar het fragment en schat het tempo. Hoeveel beats per minute telt dit nummer? Precies goed: 2 punten. Tot en met 5 BPM: 1 punt.",
       type:"media",
       vragen:[
         {v:"Hoeveel BPM telt dit nummer? Bonuspunt: Hoe heet dit nummer en wie is de artiest?", a:"155",
          image:"media/Round 10 - Raad de BPM/IMG_3592.jpeg",file:"media/Round 10 - Raad de BPM/Dirk.mp4", start:51, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Voor als je wil shazammen: Bössels - Your Soul is Mine)", a:"215",
-         file:"media/Round 10 - Raad de BPM/Bössels - Your Soul Is Mine.mp3", start:90, duur:45},
-        {v:"Hoeveel BPM telt dit nummer? (Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix))", a:"210",
-         file:"media/Round 10 - Raad de BPM/Paul Elstak - Turbo (Satirized & Aalst Turbo Saté Remix) (mp3cut.net).mp4", start:0, duur:45},
+        {v:"Hoeveel BPM telt dit nummer? (Voor als je wil shazammen: Bössels - Weet je wel wie wij zijn)", a:"215",
+         file:"media/Round 10 - Raad de BPM/Revellers VS Bössels _ Intents Festival 2025 (online-video-cutter.com).mp4", start:0, duur:76},
+        {v:"Hoeveel BPM telt dit nummer? (Frontliner - Symbols)", a:"155",
+         file:"media/Round 10 - Raad de BPM/Reverze 2026 _ Frontliner Live (online-video-cutter.com).mp4", start:0, duur:76},
         {v:"Hoeveel BPM telt dit nummer? (Lizzy - Speel niet met m'n voeten)", a:"134",
-         file:"media/Round 10 - Raad de BPM/Lizzy - Speel niet met m'n voeten.mp3", start:0, duur:45},
+         file:"media/Round 10 - Raad de BPM/Lizzy - Speel niet met m'n voeten.mp3", start:0, duur:193,
+         /* Plak hieronder de songtekst tussen de backticks (`` ` ``), gewoon met
+            een Enter per regel — geen aanhalingstekens nodig. */
+         lyrics:`Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Speel niet met m'n voeten
+Papi, papi, papi
+Denk niet dat, ik mij nu foppen liet
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Want ik ben wel klein
+En dat geeft dus schijn
+Dat ik ook wel dom zal zijn
+Maar dat ben ik niet
+Want zoals je ziet
+Spelen met m'n voeten kun jij niet
+
+Schatje kijk de zandman is daar
+Met z'n zand staat hij voor je klaar
+En als 'ie dat strooit
+Moet ik zeker gaan slapen
+Kijk daar voor het raam staat de maan
+Hij is klaar om slapen te gaan
+En als ik goed kijk
+Zie ik 'm zeker gapen
+
+Ooh
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Speel niet met m'n voeten
+Papi, papi, papi
+Denk niet dat, ik mij nu foppen liet
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Want ik ben wel klein
+En dat geeft dus schijn
+Dat ik ook wel dom zal zijn
+Maar dat ben ik niet
+Want zoals je ziet
+Spelen met m'n voeten kun jij niet 
+
+Alle dieren slapen al zacht
+De kabouters houden de wacht
+En als ik dan slaap
+Zie ik hen in m'n dromen
+Sluit je ogen schatje, want dan
+Zal alvast zo'n puntmuts man
+Heel stilletjes langs
+Mijn bedje komen
+
+Ooh
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Speel niet met m'n voeten
+Papi, papi, papi
+Denk niet dat, ik mij nu foppen liet
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Want ik ben wel klein
+En dat geeft dus schijn
+Dat ik ook wel dom zal zijn
+Maar dat ben ik niet
+Want zoals je ziet
+Spelen met m'n voeten kun jij niet
+Ooh
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet
+Speel niet met m'n voeten
+Papi, papi, papi
+Denk niet dat, ik mij nu foppen liet
+Speel niet met m'n voeten
+Papi, papi, papi
+Doe dat niet`},
         {v:"Hoeveel BPM telt dit nummer? (De Mannen van de Bouw - De Bouw is Wauw)", a:"156",
          file:"media/Round 10 - Raad de BPM/De Mannen van de Bouw - De Bouw is Wauw.mp3", start:19, duur:45},
         {v:"Hoeveel BPM telt dit nummer? (Henk Wijngaard - Ik Heb 'n Truck Als M'n Woning)", a:"120",
-         file:"media/Round 10 - Raad de BPM/Ik Heb 'n Truck Als M'n Woning.mp3", start:0, duur:45},
+         file:"media/Round 10 - Raad de BPM/Ik Heb 'n Truck Als M'n Woning.mp3", start:0, duur:168,
+         lyrics:`Ik voel me rijk als een koning
+Ik heb een truck als m'n woning
+Ik rij door zon en door regen
+Je komt me overal tegen
+En doe ik graag een tukkie
+Doe ik het in m'n truckie
+Ik heb geen kamer nodig
+Nee dat is overbodig
+Ik slaap hier als een roos
+Ik voel me rijk als een koning
+Ik heb een truck als m'n woning
+Ik rij door zon en door regen
+Je komt me overal tegen
+En neem ik dan m'n prakkie
+Eet ik op m'n gemakkie
+Niet in een restaurantje
+Maar bij m'n eigen krantje
+Heel rustig langs de kant
+Ik voel me rijk als een koning
+Ik heb een truck als m'n woning
+Ik rij door zon en door regen
+Je komt me overal tegen
+En wil een aardig meisje
+Van mij een gratis reisje
+Dan gaat m'n deur al open
+Ik laat zo'n schat niet lopen
+Die rit geef ik cadeau
+Ik voel me rijk als een koning
+Ik heb een truck als m'n woning
+Ik rij door zon en door regen
+Je komt me overal tegen
+Ik voel me rijk als een koning
+Ik heb een truck als m'n woning
+Ik rij door zon en door regen
+Je komt me overal tegen`},
         {v:"Hoeveel BPM telt dit nummer? (Jannes - Eleonora)", a:"128",
-         file:"media/Round 10 - Raad de BPM/Jannes - Eleonora.mp4", start:0, duur:180,
-         image:"media/Round 10 - Raad de BPM/IMG_6569.jpeg"},
+         file:"media/Round 10 - Raad de BPM/Jannes - Eleonora.mp4", start:0, duur:198,
+         image:"media/Round 10 - Raad de BPM/IMG_6569.jpeg",
+         lyrics:`Antonio was een hele stoere visser
+Hij voer over de Middellandse zee
+Maar als hij dan weer thuis kwam smolt zijn hartje
+En zong hij voor zijn meisje in het café
+Kom zing en dans met mij de liefde gaat nooit meer voorbij
+Oh Eleonora
+Kom en zing ga met me mee de zon schijnt dan weer voor ons twee
+Oh Eleonora
+En op een dag ze gingen samen trouwen
+Het dorp dat vierde feest daar op het plein
+Antonio keek zijn meisje in haar ogen
+En zong voor haar het volgende refrein
+Kom zing en dans met mij de liefde gaat nooit meer voorbij
+Oh Eleonora
+Kom en zing ga met me mee de zon schijnt dan weer voor ons twee
+Oh Eleonora
+Hij ging toen weer varen maar hij nam z'n meisje mee
+En toen weerklonk over de zee
+Kom zing en dans met mij de liefde gaat nooit meer voorbij
+Oh Eleonora
+Kom en zing ga met me mee de zon schijnt dan weer voor ons twee
+Oh Eleonora
+Kom zing en dans met mij de liefde gaat nooit meer voorbij
+Oh Eleonora
+Kom en zing ga met me mee de zon schijnt dan weer voor ons twee
+Oh Eleonora
+`},
       ]
     },
   ],
@@ -676,6 +834,7 @@ function qBody(s){
   const q = s.q;
   if (s.r.type === 'streetview') return svHtml(q);
   if (s.r.type === 'media' && (q.image || /\.mp4$/i.test(q.file || ''))) return bpmHtml(q);
+  if (q.images) return imagePairHtml(q);
   if (s.r.type === 'media' && q.file !== null){
     return mediaHtml(q, !!q.film);
   }
@@ -685,6 +844,12 @@ function qBody(s){
 
 function imageHtml(q, compact){
   return '<div class="imagebox'+(compact ? ' questionimage' : '')+'"><img src="'+jsStr(q.file)+'" alt="'+esc(q.v)+'"></div>';
+}
+
+function imagePairHtml(q){
+  return '<div class="imagepair">' + q.images.map((file, n) =>
+    '<div class="imagebox"><img src="'+jsStr(file)+'" alt="Foto '+(n+1)+' bij de vraag"></div>'
+  ).join('') + '</div>';
 }
 
 function bpmHtml(q){
@@ -698,13 +863,24 @@ function bpmHtml(q){
   const floater = q.image
     ? '<img class="bpm-floater" src="'+jsStr(q.image)+'" alt="" style="'+randomBpmMotion()+'">'
     : '';
-  return '<div class="mediabox bpm-stage" id="mb"><div class="mediaerr" id="mediaerr"></div>'
+  const mediaBox = '<div class="mediabox bpm-stage" id="mb"><div class="mediaerr" id="mediaerr"></div>'
     + '<div class="cover" id="cover"><div>'
     + (isVideo ? '' : '<div class="vinyl paused" id="vinyl"></div>')
     + '<button class="playbtn" type="button" onclick="playMedia(\''+path+'\','+st+','+dur+','+isVideo+','+bs+','+bd+',null,0,0)">'+label+'</button>'
     + '<div class="timerpill" id="mtimer">'+(isVideo ? 'beeld en geluid' : 'geluid only')+'</div></div></div>'
-    + floater + '</div>'
-    + '<div class="bpm-player" id="mb-controls"></div>';
+    + floater + '</div>';
+  const row = q.lyrics
+    ? '<div class="media-lyrics-row">' + mediaBox + lyricsPanelHtml(q) + '</div>'
+    : mediaBox;
+  return row + '<div class="bpm-player" id="mb-controls"></div>';
+}
+
+function lyricsPanelHtml(q){
+  if(!q.lyrics) return '';
+  const text = Array.isArray(q.lyrics) ? q.lyrics.join('\n') : String(q.lyrics);
+  return '<div class="lyrics-panel"><div class="lyrics-head">Lyrics:</div>'
+    + '<div class="lyrics-scroll" id="lyrics-scroll"><div class="lyrics-text" id="lyrics-text">'
+    + esc(text) + '</div></div></div>';
 }
 
 function randomBpmMotion(){
@@ -754,20 +930,53 @@ function mediaHtml(q, isFilm){
   const errbox = '<div class="mediaerr" id="mediaerr"></div>';
   const label = q.introFile ? '▶ Speel fragment ('+totalDur+' s)' : '▶ Speel fragment ('+dur+' s)';
   if(isFilm){
-    return '<div class="mediabox" id="mb">' + beeptag + errbox
+    const mediaBox = '<div class="mediabox" id="mb">' + beeptag + errbox
       + '<div class="cover" id="cover"><div>'
       + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',true,'+bs+','+bd+','+introFile+','+introStart+','+introDur+')">'+label+'</div>'
       + '<div class="timerpill">Titelbalk wordt afgeplakt</div></div></div></div>';
+    return q.lyrics ? '<div class="media-lyrics-row">'+mediaBox+lyricsPanelHtml(q)+'</div>' : mediaBox;
   }
-  return '<div class="mediabox" id="mb">' + beeptag + errbox + '<div class="cover" id="cover"><div>'
+  const mediaBox = '<div class="mediabox" id="mb">' + beeptag + errbox + '<div class="cover" id="cover"><div>'
     + '<div class="vinyl paused" id="vinyl"></div>'
     + '<div class="playbtn" onclick="playMedia(\''+path+'\','+st+','+dur+',false,'+bs+','+bd+','+introFile+','+introStart+','+introDur+')">'+label+'</div>'
     + '<div class="timerpill" id="mtimer">geluid only — beeld blijft bedekt</div></div></div></div>';
+  return q.lyrics ? '<div class="media-lyrics-row">'+mediaBox+lyricsPanelHtml(q)+'</div>' : mediaBox;
 }
 
 let mediaTimer = null;
 let currentPlayer = null;
 let mediaSequenceTimer = null;
+let lyricsRAF = null;
+let lyricsDelayTimer = null;
+
+/* songtekst automatisch laten meescrollen; stopt 10 seconden voor het einde
+   van het fragment (blijft daarna gewoon staan, verdwijnt niet). */
+const LYRICS_START_DELAY = 15;   /* start pas 15s na het begin van het fragment */
+const LYRICS_END_MARGIN  = 10;   /* klaar met scrollen 10s voor het einde */
+function startLyricsScroll(seconds){
+  stopLyricsScroll();
+  const scrollBox = document.getElementById('lyrics-scroll');
+  const text = document.getElementById('lyrics-text');
+  if(!scrollBox || !text) return;
+  text.style.transform = 'translateY(0)';
+  const maxScroll = Math.max(0, text.scrollHeight - scrollBox.clientHeight);
+  if(maxScroll <= 0) return;
+  const scrollWindow = Math.max(1, seconds - LYRICS_END_MARGIN - LYRICS_START_DELAY) * 1000;
+  lyricsDelayTimer = setTimeout(() => {
+    const t0 = performance.now();
+    const step = (now) => {
+      const frac = Math.min(1, (now - t0) / scrollWindow);
+      text.style.transform = 'translateY(-' + (frac * maxScroll) + 'px)';
+      if(frac < 1) lyricsRAF = requestAnimationFrame(step);
+    };
+    lyricsRAF = requestAnimationFrame(step);
+  }, LYRICS_START_DELAY * 1000);
+}
+function stopLyricsScroll(){
+  if(lyricsDelayTimer){ clearTimeout(lyricsDelayTimer); lyricsDelayTimer = null; }
+  cancelAnimationFrame(lyricsRAF);
+  lyricsRAF = null;
+}
 let beepTimers = [];
 let beepCtx = null;
 let beepEl = null;      /* voorbereid <audio>-element met de piep erin */
@@ -891,6 +1100,7 @@ function playBeepTone(sec){
 
 function destroyPlayer(){
   clearBeep();
+  stopLyricsScroll();
   if(mediaSequenceTimer){ clearTimeout(mediaSequenceTimer); mediaSequenceTimer = null; }
   if(currentPlayer){
     try{ currentPlayer.pause(); currentPlayer.remove(); }catch(e){}
@@ -953,6 +1163,7 @@ window.playMedia = function(path, start, dur, isFilm, beepStart, beepDur, introF
     el.src = path;
     el.play().catch(()=>showMediaError(
       'Kon "'+path+'" niet afspelen (browser blokkeerde het afspelen, of het bestand ontbreekt).'));
+    startLyricsScroll(dur);
   };
   if(introFile && introDur){
     seekAt = introStart || 0;
